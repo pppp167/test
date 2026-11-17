@@ -712,15 +712,27 @@
       if (!screen) return;
       let edgeSwipeStartY = null;
       let clearSwipeTimer = null;
+      let resumePollTimer = null;
 
       const showPrivacyScreen = () => {
         root.classList.add('is-privacy-active');
         if (app) app.classList.add('is-privacy-blurred');
         if (expandedCardModal) expandedCardModal.classList.add('is-privacy-blurred');
         screen.classList.add('is-visible');
+        if (resumePollTimer === null) {
+          resumePollTimer = window.setInterval(() => {
+            if (document.visibilityState === 'visible' && document.hasFocus()) {
+              hidePrivacyScreen();
+            }
+          }, 300);
+        }
       };
       const hidePrivacyScreen = () => {
         clearTimeout(clearSwipeTimer);
+        if (resumePollTimer !== null) {
+          clearInterval(resumePollTimer);
+          resumePollTimer = null;
+        }
         screen.classList.remove('is-visible');
         root.classList.remove('is-privacy-active');
         if (app) app.classList.remove('is-privacy-blurred');
@@ -759,10 +771,10 @@
         else hidePrivacyScreen();
       });
       document.addEventListener('webkitvisibilitychange', () => {
-        const isHidden = typeof document.webkitHidden === 'boolean'
-          ? document.webkitHidden
-          : document.hidden;
-        if (isHidden) showPrivacyScreen();
+        // ใช้สถานะมาตรฐานก่อน เพื่อไม่ให้ค่า webkitHidden ที่ค้างอยู่ทำให้เบลอกลับมา
+        if (document.visibilityState === 'hidden') showPrivacyScreen();
+        else if (document.visibilityState === 'visible') hidePrivacyScreen();
+        else if (document.webkitHidden === true) showPrivacyScreen();
         else hidePrivacyScreen();
       });
 
