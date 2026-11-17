@@ -11,7 +11,7 @@
 
   <title>ThaID Full Feature</title>
 
-  <!-- ไอคอนบนหน้าจอโฮม -->
+  <!-- à¹„à¸­à¸„à¸­à¸™à¸šà¸™à¸«à¸™à¹‰à¸²à¸ˆà¸­à¹‚à¸®à¸¡ -->
   <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
   <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
   <link rel="icon" type="image/png" sizes="512x512" href="logo.png">
@@ -32,16 +32,18 @@
       overflow: hidden;
     }
 
-    /* ===== Privacy screen (เบลอคลุมทั้งหน้าจอ) ===== */
+    /* ===== Privacy screen (à¹€à¸šà¸¥à¸­à¸„à¸¥à¸¸à¸¡à¸—à¸±à¹‰à¸‡à¸«à¸™à¹‰à¸²à¸ˆà¸­) ===== */
     #privacy-screen {
       position: fixed;
-      top: -100px; left: -100px; right: -100px; bottom: -100px; /* เกิน safe area ทุกด้าน */
+      top: -100px; left: -100px; right: -100px; bottom: -100px; /* à¹€à¸à¸´à¸™ safe area à¸—à¸¸à¸à¸”à¹‰à¸²à¸™ */
       z-index: 2147483647;
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
       transition: none;
-      background: linear-gradient(165deg, #8f8be6 0%, #bdb9ee 40%, #e3e0f0 72%, #f3f1f6 100%);
+      background: rgba(255, 255, 255, 0.04);
+      -webkit-backdrop-filter: blur(24px) saturate(0.85) brightness(1.06);
+      backdrop-filter: blur(24px) saturate(0.85) brightness(1.06);
     }
 
     #privacy-screen.is-visible {
@@ -49,7 +51,7 @@
       opacity: 1;
     }
 
-    /* พื้นหลังหลักเปลี่ยนเป็นสีอ่อน ไม่ให้เห็นแถบน้ำเงินเข้มด้านบน */
+    /* à¸žà¸·à¹‰à¸™à¸«à¸¥à¸±à¸‡à¸«à¸¥à¸±à¸à¹€à¸›à¸¥à¸µà¹ˆà¸¢à¸™à¹€à¸›à¹‡à¸™à¸ªà¸µà¸­à¹ˆà¸­à¸™ à¹„à¸¡à¹ˆà¹ƒà¸«à¹‰à¹€à¸«à¹‡à¸™à¹à¸–à¸šà¸™à¹‰à¸³à¹€à¸‡à¸´à¸™à¹€à¸‚à¹‰à¸¡à¸”à¹‰à¸²à¸™à¸šà¸™ */
     html.is-privacy-active,
     html.is-privacy-active body {
       background: #d9d5ec;
@@ -446,7 +448,7 @@
 
   <div class="app-container">
 
-    <button class="reset-btn" onclick="resetImages()" title="ล้างรูปภาพทั้งหมด"><i class="fa-solid fa-trash-can"></i></button>
+    <button class="reset-btn" onclick="resetImages()" title="à¸¥à¹‰à¸²à¸‡à¸£à¸¹à¸›à¸ à¸²à¸žà¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”"><i class="fa-solid fa-trash-can"></i></button>
 
     <header>
       <div class="header-top">
@@ -455,8 +457,8 @@
             <div class="avatar" id="avatarImg"></div>
           </div>
           <div class="user-text">
-            <p>สวัสดี <span class="online-badge"><span class="online-dot"></span>ONLINE</span></p>
-            <h1>คุณ ธนันท์รัฐ บัวสด</h1>
+            <p>à¸ªà¸§à¸±à¸ªà¸”à¸µ <span class="online-badge"><span class="online-dot"></span>ONLINE</span></p>
+            <h1>à¸„à¸¸à¸“ à¸˜à¸™à¸±à¸™à¸—à¹Œà¸£à¸±à¸ à¸šà¸±à¸§à¸ªà¸”</h1>
           </div>
         </div>
 
@@ -477,14 +479,14 @@
 
               <div id="frontUploadPrompt" style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background: #f1f5f9; color:#64748b;">
                 <i class="fa-solid fa-image" style="font-size: 30px; margin-bottom: 10px;"></i>
-                <p style="font-size: 14px;">คลิกเพื่ออัปโหลดรูปบัตรด้านหน้า</p>
+                <p style="font-size: 14px;">à¸„à¸¥à¸´à¸à¹€à¸žà¸·à¹ˆà¸­à¸­à¸±à¸›à¹‚à¸«à¸¥à¸”à¸£à¸¹à¸›à¸šà¸±à¸•à¸£à¸”à¹‰à¸²à¸™à¸«à¸™à¹‰à¸²</p>
               </div>
 
               <div class="lock-overlay" id="lockScreen" onclick="showPinModal(event)">
                 <svg class="lock-icon-svg" viewBox="0 0 24 24">
                   <path d="M17 8V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-1zM9 6a3 3 0 0 1 6 0v2H9V6zm3 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
                 </svg>
-                <p class="lock-text">คลิกเพื่อแสดงบัตร</p>
+                <p class="lock-text">à¸„à¸¥à¸´à¸à¹€à¸žà¸·à¹ˆà¸­à¹à¸ªà¸”à¸‡à¸šà¸±à¸•à¸£</p>
               </div>
             </div>
 
@@ -493,7 +495,7 @@
 
               <div id="backUploadPrompt" style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background: #f1f5f9; color:#64748b;">
                 <i class="fa-solid fa-image" style="font-size: 30px; margin-bottom: 10px;"></i>
-                <p style="font-size: 14px;">คลิกเพื่ออัปโหลดรูปบัตรด้านหลัง</p>
+                <p style="font-size: 14px;">à¸„à¸¥à¸´à¸à¹€à¸žà¸·à¹ˆà¸­à¸­à¸±à¸›à¹‚à¸«à¸¥à¸”à¸£à¸¹à¸›à¸šà¸±à¸•à¸£à¸”à¹‰à¸²à¸™à¸«à¸¥à¸±à¸‡</p>
               </div>
             </div>
 
@@ -505,7 +507,7 @@
             <i class="fa-regular fa-id-badge"></i>
           </button>
           <button class="card-action-btn" id="btnExpand" onclick="handleActionClick('expand', event)">
-            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> ขยายรูปบัตร
+            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> à¸‚à¸¢à¸²à¸¢à¸£à¸¹à¸›à¸šà¸±à¸•à¸£
           </button>
           <button class="card-action-btn icon-only" id="btnFlip" onclick="handleActionClick('flip', event)">
             <i class="fa-solid fa-arrows-rotate"></i>
@@ -515,13 +517,13 @@
 
       <div class="white-section">
         <div class="section-title">
-          <h2>เมนูบริการ</h2>
-          <a href="#">ทั้งหมด <i class="fa-solid fa-chevron-right" style="font-size:11px;"></i></a>
+          <h2>à¹€à¸¡à¸™à¸¹à¸šà¸£à¸´à¸à¸²à¸£</h2>
+          <a href="#">à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸” <i class="fa-solid fa-chevron-right" style="font-size:11px;"></i></a>
         </div>
 
         <div class="menu-grid">
 
-          <div class="menu-item" onclick="alert('ระบบตรวจสอบคำขอ')">
+          <div class="menu-item" onclick="alert('à¸£à¸°à¸šà¸šà¸•à¸£à¸§à¸ˆà¸ªà¸­à¸šà¸„à¸³à¸‚à¸­')">
             <div class="menu-icon">
               <svg viewBox="0 0 24 24" class="search-request-icon">
                 <rect x="2.5" y="2.5" width="19" height="19" rx="3.5" ry="3.5"></rect>
@@ -531,10 +533,10 @@
                 <path d="M7.9 14 a3.1 3.1 0 0 1 6.2 0"></path>
               </svg>
             </div>
-            <span>ตรวจสอบ<br>คำขอ</span>
+            <span>à¸•à¸£à¸§à¸ˆà¸ªà¸­à¸š<br>à¸„à¸³à¸‚à¸­</span>
           </div>
 
-          <div class="menu-item" onclick="alert('ระบบการรับรองเอกสาร')">
+          <div class="menu-item" onclick="alert('à¸£à¸°à¸šà¸šà¸à¸²à¸£à¸£à¸±à¸šà¸£à¸­à¸‡à¹€à¸­à¸à¸ªà¸²à¸£')">
             <div class="menu-icon">
               <svg viewBox="0 0 24 24">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -542,10 +544,10 @@
                 <polyline points="9 15 11 17 15 13"></polyline>
               </svg>
             </div>
-            <span>การรับรอง<br>เอกสาร</span>
+            <span>à¸à¸²à¸£à¸£à¸±à¸šà¸£à¸­à¸‡<br>à¹€à¸­à¸à¸ªà¸²à¸£</span>
           </div>
 
-          <div class="menu-item" onclick="alert('ระบบแจ้งย้ายที่อยู่')">
+          <div class="menu-item" onclick="alert('à¸£à¸°à¸šà¸šà¹à¸ˆà¹‰à¸‡à¸¢à¹‰à¸²à¸¢à¸—à¸µà¹ˆà¸­à¸¢à¸¹à¹ˆ')">
             <div class="menu-icon">
               <svg viewBox="0 0 24 24" class="solid-box-icon">
                 <path d="M12 2.5 L3.5 7 V17 L12 21.5 L20.5 17 V7 Z" fill="#303790" stroke="#303790" stroke-width="1.5" stroke-linejoin="round"></path>
@@ -554,7 +556,7 @@
                 <line x1="8" y1="4.8" x2="16" y2="9.3" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"></line>
               </svg>
             </div>
-            <span>การแจ้งย้าย<br>ที่อยู่</span>
+            <span>à¸à¸²à¸£à¹à¸ˆà¹‰à¸‡à¸¢à¹‰à¸²à¸¢<br>à¸—à¸µà¹ˆà¸­à¸¢à¸¹à¹ˆ</span>
           </div>
 
           <div class="menu-item" style="opacity: 0.5;">
@@ -564,7 +566,7 @@
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
             </div>
-            <span>เร็วๆ นี้</span>
+            <span>à¹€à¸£à¹‡à¸§à¹† à¸™à¸µà¹‰</span>
           </div>
 
         </div>
@@ -588,8 +590,8 @@
         </div>
 
         <div class="section-title" style="margin-top: 10px;">
-          <h2>ประกาศทั้งหมด</h2>
-          <a href="#">ทั้งหมด <i class="fa-solid fa-chevron-right" style="font-size:11px;"></i></a>
+          <h2>à¸›à¸£à¸°à¸à¸²à¸¨à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”</h2>
+          <a href="#">à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸” <i class="fa-solid fa-chevron-right" style="font-size:11px;"></i></a>
         </div>
 
         <div class="announcement-vertical-list">
@@ -620,7 +622,7 @@
     </div>
 
     <div class="bottom-nav">
-      <div class="chat-fab" onclick="alert('เปิดแชทสอบถามเจ้าหน้าที่')">
+      <div class="chat-fab" onclick="alert('à¹€à¸›à¸´à¸”à¹à¸Šà¸—à¸ªà¸­à¸šà¸–à¸²à¸¡à¹€à¸ˆà¹‰à¸²à¸«à¸™à¹‰à¸²à¸—à¸µà¹ˆ')">
         <svg viewBox="0 0 24 24">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
           <circle cx="8" cy="11" r="1.5" fill="#303790" stroke="none"></circle>
@@ -629,8 +631,8 @@
         </svg>
       </div>
 
-      <button class="nav-item active"><i class="fa-solid fa-house"></i><span>หน้าหลัก</span></button>
-      <button class="nav-item"><i class="fa-solid fa-file-lines"></i><span>เอกสาร</span></button>
+      <button class="nav-item active"><i class="fa-solid fa-house"></i><span>à¸«à¸™à¹‰à¸²à¸«à¸¥à¸±à¸</span></button>
+      <button class="nav-item"><i class="fa-solid fa-file-lines"></i><span>à¹€à¸­à¸à¸ªà¸²à¸£</span></button>
 
       <button class="nav-item nav-scan">
         <div class="scan-btn">
@@ -644,18 +646,18 @@
             <circle cx="15.5" cy="12" r="0.9" fill="#ffffff" stroke="none"></circle>
           </svg>
         </div>
-        <span>สแกน</span>
+        <span>à¸ªà¹à¸à¸™</span>
       </button>
 
-      <button class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>ประวัติ</span></button>
-      <button class="nav-item"><i class="fa-solid fa-sliders"></i><span>ตั้งค่า</span></button>
+      <button class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>à¸›à¸£à¸°à¸§à¸±à¸•à¸´</span></button>
+      <button class="nav-item"><i class="fa-solid fa-sliders"></i><span>à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²</span></button>
     </div>
 
   </div>
 
   <div class="pin-modal" id="pinModal">
     <div class="pin-container">
-      <h2 class="pin-title">ระบุรหัสผ่าน</h2>
+      <h2 class="pin-title">à¸£à¸°à¸šà¸¸à¸£à¸«à¸±à¸ªà¸œà¹ˆà¸²à¸™</h2>
       <div class="pin-dots" id="pinDots">
         <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
         <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
@@ -674,7 +676,7 @@
         <button class="key" onclick="inputPin('0')">0</button>
         <button class="key action" onclick="deletePin()"><i class="fa-solid fa-delete-left"></i></button>
       </div>
-      <button class="forgot-btn" onclick="closePinModal()">ลืมรหัสผ่าน</button>
+      <button class="forgot-btn" onclick="closePinModal()">à¸¥à¸·à¸¡à¸£à¸«à¸±à¸ªà¸œà¹ˆà¸²à¸™</button>
     </div>
   </div>
 
@@ -699,7 +701,7 @@
   </div>
 
   <script>
-    // ซ่อนหน้าเว็บในภาพตัวอย่างเมื่อ iOS ส่งเว็บไปอยู่เบื้องหลัง
+    // à¸‹à¹ˆà¸­à¸™à¸«à¸™à¹‰à¸²à¹€à¸§à¹‡à¸šà¹ƒà¸™à¸ à¸²à¸žà¸•à¸±à¸§à¸­à¸¢à¹ˆà¸²à¸‡à¹€à¸¡à¸·à¹ˆà¸­ iOS à¸ªà¹ˆà¸‡à¹€à¸§à¹‡à¸šà¹„à¸›à¸­à¸¢à¸¹à¹ˆà¹€à¸šà¸·à¹‰à¸­à¸‡à¸«à¸¥à¸±à¸‡
     (function setupAppSwitcherPrivacy() {
       const screen = document.getElementById('privacy-screen');
       const app = document.querySelector('.app-container');
@@ -723,13 +725,13 @@
         if (expandedCardModal) expandedCardModal.classList.remove('is-privacy-blurred');
       };
 
-      // Home Screen web app บางรุ่นไม่ส่ง blur ตอนเริ่มปัดเปิด App Switcher
-      // จึงปิดบังทันทีเมื่อเริ่มปัดขึ้นจากขอบล่างของหน้าจอ
+      // Home Screen web app à¸šà¸²à¸‡à¸£à¸¸à¹ˆà¸™à¹„à¸¡à¹ˆà¸ªà¹ˆà¸‡ blur à¸•à¸­à¸™à¹€à¸£à¸´à¹ˆà¸¡à¸›à¸±à¸”à¹€à¸›à¸´à¸” App Switcher
+      // à¸ˆà¸¶à¸‡à¸›à¸´à¸”à¸šà¸±à¸‡à¸—à¸±à¸™à¸—à¸µà¹€à¸¡à¸·à¹ˆà¸­à¹€à¸£à¸´à¹ˆà¸¡à¸›à¸±à¸”à¸‚à¸¶à¹‰à¸™à¸ˆà¸²à¸à¸‚à¸­à¸šà¸¥à¹ˆà¸²à¸‡à¸‚à¸­à¸‡à¸«à¸™à¹‰à¸²à¸ˆà¸­
       document.addEventListener('touchstart', (event) => {
         const touch = event.touches && event.touches[0];
         if (!touch) return;
         edgeSwipeStartY = touch.clientY >= window.innerHeight - 36 ? touch.clientY : null;
-        // ถ้ากลับมาแล้ว iOS ไม่ส่ง focus/visibility กลับมา ให้แตะหน้าจอเพื่อคืนภาพทันที
+        // à¸–à¹‰à¸²à¸à¸¥à¸±à¸šà¸¡à¸²à¹à¸¥à¹‰à¸§ iOS à¹„à¸¡à¹ˆà¸ªà¹ˆà¸‡ focus/visibility à¸à¸¥à¸±à¸šà¸¡à¸² à¹ƒà¸«à¹‰à¹à¸•à¸°à¸«à¸™à¹‰à¸²à¸ˆà¸­à¹€à¸žà¸·à¹ˆà¸­à¸„à¸·à¸™à¸ à¸²à¸žà¸—à¸±à¸™à¸—à¸µ
         if (edgeSwipeStartY === null && document.visibilityState === 'visible') {
           hidePrivacyScreen();
         }
@@ -917,16 +919,16 @@
     function handleActionClick(action, event) {
       event.stopPropagation();
       if (!isUnlocked) {
-        alert('กรุณาคลิกที่บัตรเพื่อใส่รหัสผ่านก่อนใช้งาน');
+        alert('à¸à¸£à¸¸à¸“à¸²à¸„à¸¥à¸´à¸à¸—à¸µà¹ˆà¸šà¸±à¸•à¸£à¹€à¸žà¸·à¹ˆà¸­à¹ƒà¸ªà¹ˆà¸£à¸«à¸±à¸ªà¸œà¹ˆà¸²à¸™à¸à¹ˆà¸­à¸™à¹ƒà¸Šà¹‰à¸‡à¸²à¸™');
         showPinModal(event);
         return;
       }
-      if (action === 'info') alert('ดูข้อมูลบัตร');
+      if (action === 'info') alert('à¸”à¸¹à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸šà¸±à¸•à¸£');
       else if (action === 'expand') expandCard();
       else if (action === 'flip') flipCard();
     }
 
-    // แบนเนอร์ / ประกาศ: ใส่รูปลงช่องตามชื่อ (banner1-2, ann1-5)
+    // à¹à¸šà¸™à¹€à¸™à¸­à¸£à¹Œ / à¸›à¸£à¸°à¸à¸²à¸¨: à¹ƒà¸ªà¹ˆà¸£à¸¹à¸›à¸¥à¸‡à¸Šà¹ˆà¸­à¸‡à¸•à¸²à¸¡à¸Šà¸·à¹ˆà¸­ (banner1-2, ann1-5)
     function setSlotImage(type, url) {
       const prefix = type.startsWith('banner') ? 'banner' : 'ann';
       const n = type.slice(-1);
@@ -1004,7 +1006,7 @@
             if (pinCode === correctPin) {
               unlockCard();
             } else {
-              alert("❌ รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่");
+              alert("âŒ à¸£à¸«à¸±à¸ªà¸œà¹ˆà¸²à¸™à¹„à¸¡à¹ˆà¸–à¸¹à¸à¸•à¹‰à¸­à¸‡ à¸à¸£à¸¸à¸“à¸²à¸¥à¸­à¸‡à¹ƒà¸«à¸¡à¹ˆ");
               pinCode = "";
               updatePinDots();
             }
@@ -1042,7 +1044,7 @@
     function expandCard() {
       if (!isUnlocked) return;
       if (!hasFrontImage && !hasBackImage) {
-        alert("กรุณาอัปโหลดรูปบัตรก่อนขยายครับ");
+        alert("à¸à¸£à¸¸à¸“à¸²à¸­à¸±à¸›à¹‚à¸«à¸¥à¸”à¸£à¸¹à¸›à¸šà¸±à¸•à¸£à¸à¹ˆà¸­à¸™à¸‚à¸¢à¸²à¸¢à¸„à¸£à¸±à¸š");
         return;
       }
       const frontSrc = document.getElementById('idFrontImg').src;
@@ -1095,7 +1097,7 @@
     }
 
     function resetImages() {
-      if (confirm('คุณต้องการล้างรูปภาพทั้งหมดและเริ่มต้นใหม่หรือไม่?')) {
+      if (confirm('à¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¸à¸²à¸£à¸¥à¹‰à¸²à¸‡à¸£à¸¹à¸›à¸ à¸²à¸žà¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”à¹à¸¥à¸°à¹€à¸£à¸´à¹ˆà¸¡à¸•à¹‰à¸™à¹ƒà¸«à¸¡à¹ˆà¸«à¸£à¸·à¸­à¹„à¸¡à¹ˆ?')) {
         ['avatar', 'front', 'back', ...SLOT_TYPES].forEach(k => localStorage.removeItem('thaid_' + k));
         location.reload();
       }
@@ -1103,4 +1105,3 @@
   </script>
 </body>
 </html>
-
