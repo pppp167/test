@@ -761,10 +761,19 @@
       window.addEventListener('pagehide', showPrivacyScreen);
       window.addEventListener('pageshow', hidePrivacyScreen);
       window.addEventListener('blur', showPrivacyScreen);
-      // บางครั้ง iOS ส่ง focus ก่อนอัปเดต visibilityState; ล้างทันทีเมื่อได้ focus กลับมา
-      window.addEventListener('focus', hidePrivacyScreen);
-      window.addEventListener('resume', hidePrivacyScreen);
-      document.addEventListener('resume', hidePrivacyScreen);
+      // เคลียร์เมื่อ iOS ส่งสัญญาณกลับเข้าแอป และรอ 2 เฟรมให้หน้าเว็บวาดเสร็จก่อน
+      const clearWhenForeground = () => {
+        if (document.visibilityState !== 'visible') return;
+        requestAnimationFrame(() => requestAnimationFrame(hidePrivacyScreen));
+      };
+      window.addEventListener('focus', clearWhenForeground);
+      window.addEventListener('resume', clearWhenForeground);
+      document.addEventListener('resume', clearWhenForeground);
+      window.addEventListener('pageshow', clearWhenForeground);
+
+      // ตรวจตอนเริ่มเปิดแอปด้วย เผื่อเหตุการณ์เริ่มต้นเกิดก่อนติดตั้ง listeners
+      if (document.readyState === 'complete') clearWhenForeground();
+      else window.addEventListener('load', clearWhenForeground, { once: true });
     })();
 
     let autoSlideInterval;
