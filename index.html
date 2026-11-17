@@ -7,7 +7,8 @@
   <meta name="theme-color" content="#303790">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- 🌟 แก้ไขตรงนี้: เปลี่ยนจาก black-translucent เป็น default -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <title>ThaID Full Feature</title>
 
@@ -35,7 +36,7 @@
     /* ===== Privacy screen (เบลอคลุมทั้งหน้าจอ) ===== */
     #privacy-screen {
       position: fixed;
-      top: -100px; left: -100px; right: -100px; bottom: -100px; /* เกิน safe area ทุกด้าน */
+      top: -100px; left: -100px; right: -100px; bottom: -100px;
       z-index: 2147483647;
       visibility: hidden;
       opacity: 0;
@@ -51,7 +52,6 @@
       opacity: 1;
     }
 
-    /* พื้นหลังหลักเปลี่ยนเป็นสีอ่อน ไม่ให้เห็นแถบน้ำเงินเข้มด้านบน */
     html.is-privacy-active,
     html.is-privacy-active body {
       background: #d9d5ec;
@@ -88,6 +88,7 @@
       flex-shrink: 0;
       position: relative;
       z-index: 50;
+      /* เว้นระยะด้านบนด้วย safe-area-inset-top */
       padding: calc(env(safe-area-inset-top) + 12px) 20px 8px 20px;
       isolation: isolate;
       backdrop-filter: none;
@@ -701,7 +702,6 @@
   </div>
 
   <script>
-    // ซ่อนหน้าเว็บในภาพตัวอย่างเมื่อ iOS ส่งเว็บไปอยู่เบื้องหลัง
     (function setupAppSwitcherPrivacy() {
       const screen = document.getElementById('privacy-screen');
       const app = document.querySelector('.app-container');
@@ -725,13 +725,10 @@
         if (expandedCardModal) expandedCardModal.classList.remove('is-privacy-blurred');
       };
 
-      // Home Screen web app บางรุ่นไม่ส่ง blur ตอนเริ่มปัดเปิด App Switcher
-      // จึงปิดบังทันทีเมื่อเริ่มปัดขึ้นจากขอบล่างของหน้าจอ
       document.addEventListener('touchstart', (event) => {
         const touch = event.touches && event.touches[0];
         if (!touch) return;
         edgeSwipeStartY = touch.clientY >= window.innerHeight - 36 ? touch.clientY : null;
-        // ถ้ากลับมาแล้ว iOS ไม่ส่ง focus/visibility กลับมา ให้แตะหน้าจอเพื่อคืนภาพทันที
         if (edgeSwipeStartY === null && document.visibilityState === 'visible') {
           hidePrivacyScreen();
         }
@@ -928,7 +925,6 @@
       else if (action === 'flip') flipCard();
     }
 
-    // แบนเนอร์ / ประกาศ: ใส่รูปลงช่องตามชื่อ (banner1-2, ann1-5)
     function setSlotImage(type, url) {
       const prefix = type.startsWith('banner') ? 'banner' : 'ann';
       const n = type.slice(-1);
