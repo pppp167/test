@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#303790">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <title>ThaID Full Feature</title>
 
@@ -712,7 +712,6 @@
       const app = document.querySelector('.app-container');
       const expandedCardModal = document.getElementById('expandModal');
       const root = document.documentElement;
-      const themeMeta = document.querySelector('meta[name="theme-color"]');
       if (!screen) return;
       let edgeSwipeStartY = null;
       let clearSwipeTimer = null;
@@ -721,7 +720,6 @@
         root.classList.add('is-privacy-active');
         if (app) app.classList.add('is-privacy-blurred');
         if (expandedCardModal) expandedCardModal.classList.add('is-privacy-blurred');
-        if (themeMeta) themeMeta.setAttribute('content', '#d9d5ec');
         screen.classList.add('is-visible');
       };
       const hidePrivacyScreen = () => {
@@ -730,7 +728,6 @@
         root.classList.remove('is-privacy-active');
         if (app) app.classList.remove('is-privacy-blurred');
         if (expandedCardModal) expandedCardModal.classList.remove('is-privacy-blurred');
-        if (themeMeta) themeMeta.setAttribute('content', '#303790');
       };
 
       // Home Screen web app บางรุ่นไม่ส่ง blur ตอนเริ่มปัดเปิด App Switcher
