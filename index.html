@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  
+
   <meta name="theme-color" content="#303790">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  
+
   <title>ThaID Full Feature</title>
 
-  <!-- 🌟 ส่วนหัวสำหรับไอคอน -->
+  <!-- ไอคอนบนหน้าจอโฮม -->
   <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
   <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
   <link rel="icon" type="image/png" sizes="512x512" href="logo.png">
@@ -19,42 +19,47 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+Sans+TH:wght@400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
     html, body {
       height: 100%;
       margin: 0;
-      background: #303790; /* สีพื้นหลังหลัก */
+      background: #303790;
       overflow: hidden;
     }
 
-    /* 🌟 แก้ไขหน้าจอเบลอ */
+    /* ===== Privacy screen (เบลอคลุมทั้งหน้าจอ) ===== */
     #privacy-screen {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0; /* เปลี่ยนเป็น 0 ทั้ง 4 ด้าน เพื่อให้เต็มจอ 100% */
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh; /* รองรับ Dynamic Viewport Height สำหรับ iOS */
-      z-index: 2147483647; /* ลอยอยู่บนสุดเสมอ */
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      top: -100px; left: -100px; right: -100px; bottom: -100px; /* เกิน safe area ทุกด้าน */
+      z-index: 2147483647;
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
       transition: none;
-      background: rgba(48, 55, 144, 0.3); /* ใส่สีน้ำเงินเข้มจางๆ เพื่อไม่ให้แถบขาวโผล่ */
-      -webkit-backdrop-filter: blur(24px) saturate(0.72) brightness(1.08);
-      backdrop-filter: blur(24px) saturate(0.72) brightness(1.08);
+      background: linear-gradient(165deg, #8f8be6 0%, #bdb9ee 40%, #e3e0f0 72%, #f3f1f6 100%);
     }
 
     #privacy-screen.is-visible {
       visibility: visible;
       opacity: 1;
+    }
+
+    /* เบลอเนื้อหาจริงทั้งหมด (รวม header และหน้าขยายบัตร) */
+    .app-container.is-privacy-blurred,
+    .expand-modal.is-privacy-blurred {
+      -webkit-filter: blur(28px) saturate(0.7) brightness(1.1);
+      filter: blur(28px) saturate(0.7) brightness(1.1);
+    }
+
+    /* พื้นหลังหลักเปลี่ยนเป็นสีอ่อน ไม่ให้เห็นแถบน้ำเงินเข้มด้านบน */
+    html.is-privacy-active,
+    html.is-privacy-active body {
+      background: #d9d5ec;
     }
 
     body {
@@ -66,9 +71,8 @@
 
     .app-container {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      bottom: 0;
-      height: auto;          
+      top: 0; left: 0; right: 0; bottom: 0;
+      height: auto;
       max-height: none;
       max-width: none;
       width: auto;
@@ -79,14 +83,6 @@
       flex-direction: column;
       box-shadow: none;
       overflow: hidden;
-    }
-
-    .app-container.is-privacy-blurred {
-      background: linear-gradient(165deg, #7773df 0%, #aaa6eb 36%, #d9d5ec 68%, #f0edf2 100%);
-    }
-
-    .app-container.is-privacy-blurred header {
-      background: linear-gradient(180deg, #7975e0 0%, #a5a1eb 100%);
     }
 
     input[type="file"] { display: none; }
@@ -120,7 +116,7 @@
     .header-icons { display: flex; gap: 12px; font-size: 18px; }
     .header-icons i {
       width: 42px; height: 42px;
-      background: rgba(0, 0, 0, 0.25); 
+      background: rgba(0, 0, 0, 0.25);
       border-radius: 50%;
       display: flex; justify-content: center; align-items: center;
       cursor: pointer;
@@ -144,11 +140,10 @@
       display: flex;
       flex-direction: column;
     }
-    
     .main-scroll-area::-webkit-scrollbar { display: none; }
 
     .blue-section {
-      padding: 0 16px 10px 16px; 
+      padding: 0 16px 10px 16px;
       position: relative;
       z-index: 10;
       display: flex;
@@ -159,7 +154,7 @@
 
     .card-wrapper {
       width: 100%;
-      max-width: 350px; 
+      max-width: 350px;
       height: auto;
       aspect-ratio: 1.58 / 1;
       perspective: 1000px;
@@ -168,11 +163,10 @@
     }
 
     .card-inner {
-      width: 100%; height: 100%; 
+      width: 100%; height: 100%;
       transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d; position: relative; cursor: pointer;
     }
-
     .card-inner.is-flipped { transform: rotateY(180deg); }
 
     .card-front, .card-back {
@@ -180,60 +174,44 @@
       backface-visibility: hidden; border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.3); overflow: hidden; background: #fff;
     }
-
     .card-back { transform: rotateY(180deg); }
 
-    .card-image { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: contain; 
-      background: #fff; 
-      display: block; 
-    }
+    .card-image { width: 100%; height: 100%; object-fit: contain; background: #fff; display: block; }
 
     .lock-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(255, 255, 255, 0.55);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
-      border-radius: 12px; 
+      border-radius: 12px;
       display: flex; flex-direction: column;
       justify-content: center; align-items: center; z-index: 10;
     }
-
     .lock-icon-svg { width: 56px; height: 56px; fill: #333; margin-bottom: 12px; }
     .lock-text { font-size: 17px; font-weight: 600; color: #333; }
 
-    .card-action-bar { 
-      margin-top: 10px; 
-      display: flex; 
-      justify-content: center; 
-      gap: 12px; 
-      width: 100%; 
-    }
-    
+    .card-action-bar { margin-top: 10px; display: flex; justify-content: center; gap: 12px; width: 100%; }
+
     .card-action-btn {
       background: #3f48a5; color: white; border: none;
-      padding: 8px 16px; border-radius: 20px; 
-      font-size: 14px;
-      font-weight: 500;
+      padding: 8px 16px; border-radius: 20px;
+      font-size: 14px; font-weight: 500;
       cursor: pointer; display: flex; align-items: center; gap: 6px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: all 0.2s; 
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: all 0.2s;
       font-family: inherit;
     }
     .card-action-btn:active { transform: scale(0.95); }
-    
-    .card-action-btn.icon-only { 
-      padding: 0; width: 38px; height: 38px; border-radius: 50%; 
+    .card-action-btn.icon-only {
+      padding: 0; width: 38px; height: 38px; border-radius: 50%;
       display: flex; justify-content: center; align-items: center;
       font-size: 16px;
     }
 
     .white-section {
-      flex: 1; 
+      flex: 1;
       background: #ffffff;
       border-radius: 24px 24px 0 0;
-      margin-top: 8px; 
+      margin-top: 8px;
       padding-top: 24px;
       position: relative;
       z-index: 20;
@@ -246,37 +224,30 @@
 
     .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 0 20px; }
     .menu-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; cursor: pointer; }
-    
-    .menu-icon { 
-      width: 56px; height: 56px; 
-      background: #eceef2; 
-      border-radius: 50%; 
-      display: flex; justify-content: center; align-items: center; 
-    }
 
+    .menu-icon {
+      width: 56px; height: 56px;
+      background: #eceef2;
+      border-radius: 50%;
+      display: flex; justify-content: center; align-items: center;
+    }
     .menu-icon svg {
       width: 30px; height: 30px;
       stroke: #303790; stroke-width: 1.8; fill: none;
       stroke-linecap: round; stroke-linejoin: round;
     }
-    
     .menu-item span { font-size: 13px; color: #4b5563; line-height: 1.3; font-weight: 500;}
 
     .carousel-wrapper {
       overflow-x: auto;
-      scrollbar-width: none; 
-      margin-top: 20px; 
-      padding: 0; 
+      scrollbar-width: none;
+      margin-top: 20px;
+      padding: 0;
       position: relative;
     }
     .carousel-wrapper::-webkit-scrollbar { display: none; }
 
-    .carousel-track {
-      display: flex;
-      gap: 12px;
-      width: max-content;
-      padding: 0 10%; 
-    }
+    .carousel-track { display: flex; gap: 12px; width: max-content; padding: 0 10%; }
 
     .banner {
       flex: 0 0 auto; border-radius: 12px; overflow: hidden;
@@ -294,37 +265,22 @@
       color: #9ca3af; font-size: 24px; z-index: 0;
     }
 
-    .carousel-dots {
-      display: flex; justify-content: center; align-items: center; gap: 8px;
-      margin-top: 10px; 
-      margin-bottom: 20px; 
-    }
+    .carousel-dots { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; margin-bottom: 20px; }
 
-    .dot-indicator {
-      width: 8px; height: 8px; border-radius: 50%; background-color: #d1d5db;
-      transition: all 0.3s ease;
-    }
+    .dot-indicator { width: 8px; height: 8px; border-radius: 50%; background-color: #d1d5db; transition: all 0.3s ease; }
+    .dot-indicator.active { width: 24px; border-radius: 4px; background-color: #303790; }
 
-    .dot-indicator.active {
-      width: 24px; border-radius: 4px; background-color: #303790;
-    }
-
-    .announcement-vertical-list {
-      display: flex; flex-direction: column; gap: 12px;
-      padding: 0 20px; margin-bottom: 20px;
-    }
+    .announcement-vertical-list { display: flex; flex-direction: column; gap: 12px; padding: 0 20px; margin-bottom: 20px; }
 
     .announcement-vertical-box {
       width: 100%; height: 80px; border-radius: 12px;
       background: #f1f5f9; overflow: hidden; position: relative;
       cursor: pointer; border: 1px solid #e2e8f0;
     }
-
     .announcement-vertical-box .banner-bg-img {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       object-fit: cover; z-index: 1;
     }
-
     .announcement-vertical-box .banner-placeholder {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       display: flex; justify-content: center; align-items: center;
@@ -332,7 +288,7 @@
     }
 
     .bottom-nav {
-      position: absolute; 
+      position: absolute;
       left: 0; right: 0; bottom: 0;
       width: auto;
       background: white;
@@ -345,7 +301,7 @@
     .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #9ca3af; font-size: 12px; background: none; border: none; cursor: pointer; font-family: inherit; font-weight: 500;}
     .nav-item.active { color: #303790; font-weight: 700;}
     .nav-item i { font-size: 22px; }
-    
+
     .nav-scan { margin-top: -35px; }
     .scan-btn { width: 64px; height: 64px; background: #303790; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; border: 5px solid #f8f9fa; box-shadow: 0 4px 12px rgba(48, 55, 144, 0.3); }
 
@@ -378,14 +334,14 @@
     .pin-modal {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.5); z-index: 100; display: flex; flex-direction: column; justify-content: flex-end;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s; 
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
     }
     .pin-modal.show { opacity: 1; pointer-events: all; }
-    .pin-container { 
-      background: #f8f9fa; border-radius: 30px 30px 0 0; padding: 24px 20px 40px 20px; 
-      display: flex; flex-direction: column; align-items: center; 
-      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-      width: 100%; 
+    .pin-container {
+      background: #f8f9fa; border-radius: 30px 30px 0 0; padding: 24px 20px 40px 20px;
+      display: flex; flex-direction: column; align-items: center;
+      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
     }
     .pin-modal.show .pin-container { transform: translateY(0); }
     .pin-title { font-size: 18px; font-weight: 700; color: #333; margin-bottom: 20px; }
@@ -412,13 +368,13 @@
       overflow: hidden;
       container-type: size;
     }
-    
+
     .expand-header {
       padding: calc(env(safe-area-inset-top) + 8px) 20px 20px 20px;
       display: flex; justify-content: space-between; align-items: center;
       color: #ffffff; position: absolute; top: 0; left: 0; width: 100%; z-index: 10;
     }
-    
+
     .back-btn,
     .header-icons-expanded .icon-btn {
       background: rgba(255, 255, 255, 0.2);
@@ -432,11 +388,8 @@
       box-shadow: none;
       transition: background 0.2s;
     }
-    
     .back-btn:active,
-    .header-icons-expanded .icon-btn:active {
-      background: rgba(255, 255, 255, 0.35);
-    }
+    .header-icons-expanded .icon-btn:active { background: rgba(255, 255, 255, 0.35); }
 
     .header-icons-expanded { display: flex; gap: 12px; }
 
@@ -448,48 +401,38 @@
     }
 
     .expand-card-inner {
-      flex-shrink: 0; 
+      flex-shrink: 0;
       width: min(calc(96cqh), calc((96cqw) * 1.58));
       aspect-ratio: 1.58 / 1;
-      position: relative; 
+      position: relative;
       transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d;
       cursor: pointer; perspective: 1000px;
     }
-
     .expand-card-inner.is-flipped { transform: rotateY(180deg); }
 
     .expand-card-front, .expand-card-back {
       position: absolute; width: 100%; height: 100%;
-      backface-visibility: hidden; border-radius: 12px; 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
-      overflow: hidden; 
-      background: transparent; 
+      backface-visibility: hidden; border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      overflow: hidden;
+      background: transparent;
     }
-
     .expand-card-back { transform: rotateY(180deg); }
 
-    .expand-card-image {
-      width: 100%; height: 100%; 
-      object-fit: cover; 
-      display: block;
-    }
+    .expand-card-image { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .reset-btn {
       position: absolute; bottom: 15px; right: 15px;
       width: 24px; height: 24px;
       background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.6);
-      border-radius: 50%; cursor: pointer; z-index: 999; opacity: 0.6; 
+      border-radius: 50%; cursor: pointer; z-index: 999; opacity: 0.6;
       transition: all 0.2s; display: flex; justify-content: center; align-items: center;
       color: white; font-size: 10px;
     }
-    .reset-btn:hover, .reset-btn:active { 
-      opacity: 1; background: rgba(255, 0, 0, 0.8); border-color: red; 
-    }
+    .reset-btn:hover, .reset-btn:active { opacity: 1; background: rgba(255, 0, 0, 0.8); border-color: red; }
 
-    .solid-box-icon {
-      stroke: none !important; 
-    }
+    .solid-box-icon { stroke: none !important; }
   </style>
 </head>
 <body>
@@ -497,7 +440,7 @@
 
   <input type="file" id="uploadBanner1" accept="image/*" onchange="handleImageUpload(event, 'banner1')">
   <input type="file" id="uploadBanner2" accept="image/*" onchange="handleImageUpload(event, 'banner2')">
-  
+
   <input type="file" id="uploadAnn1" accept="image/*" onchange="handleImageUpload(event, 'ann1')">
   <input type="file" id="uploadAnn2" accept="image/*" onchange="handleImageUpload(event, 'ann2')">
   <input type="file" id="uploadAnn3" accept="image/*" onchange="handleImageUpload(event, 'ann3')">
@@ -509,7 +452,7 @@
   <input type="file" id="uploadIdBack" accept="image/*" onchange="handleImageUpload(event, 'back')">
 
   <div class="app-container">
-    
+
     <button class="reset-btn" onclick="resetImages()" title="ล้างรูปภาพทั้งหมด"><i class="fa-solid fa-trash-can"></i></button>
 
     <header>
@@ -523,7 +466,7 @@
             <h1>คุณ ธนันท์รัฐ บัวสด</h1>
           </div>
         </div>
-        
+
         <div class="header-icons">
           <i class="fa-regular fa-bell"></i>
           <i class="fa-solid fa-power-off"></i>
@@ -535,10 +478,10 @@
       <div class="blue-section">
         <div class="card-wrapper" id="cardWrapper">
           <div class="card-inner" id="myIdCard" onclick="handleCardClick(event)">
-            
+
             <div class="card-front">
               <img src="" alt="Front ID" class="card-image" id="idFrontImg" style="background: #e2e8f0; display: none;">
-              
+
               <div id="frontUploadPrompt" style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background: #f1f5f9; color:#64748b;">
                 <i class="fa-solid fa-image" style="font-size: 30px; margin-bottom: 10px;"></i>
                 <p style="font-size: 14px;">คลิกเพื่ออัปโหลดรูปบัตรด้านหน้า</p>
@@ -554,7 +497,7 @@
 
             <div class="card-back">
               <img src="" alt="Back ID" class="card-image" id="idBackImg" style="background: #e2e8f0; display: none;">
-              
+
               <div id="backUploadPrompt" style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background: #f1f5f9; color:#64748b;">
                 <i class="fa-solid fa-image" style="font-size: 30px; margin-bottom: 10px;"></i>
                 <p style="font-size: 14px;">คลิกเพื่ออัปโหลดรูปบัตรด้านหลัง</p>
@@ -582,9 +525,9 @@
           <h2>เมนูบริการ</h2>
           <a href="#">ทั้งหมด <i class="fa-solid fa-chevron-right" style="font-size:11px;"></i></a>
         </div>
-        
+
         <div class="menu-grid">
-          
+
           <div class="menu-item" onclick="alert('ระบบตรวจสอบคำขอ')">
             <div class="menu-icon">
               <svg viewBox="0 0 24 24" class="search-request-icon">
@@ -678,7 +621,7 @@
             <img src="" alt="Announce 5" class="banner-bg-img" id="annImg5" style="display: none;">
           </div>
         </div>
-        
+
         <div style="height: 20px;"></div>
       </div>
     </div>
@@ -695,7 +638,7 @@
 
       <button class="nav-item active"><i class="fa-solid fa-house"></i><span>หน้าหลัก</span></button>
       <button class="nav-item"><i class="fa-solid fa-file-lines"></i><span>เอกสาร</span></button>
-      
+
       <button class="nav-item nav-scan">
         <div class="scan-btn">
           <svg viewBox="0 0 24 24" class="scan-icon">
@@ -768,26 +711,35 @@
       const screen = document.getElementById('privacy-screen');
       const app = document.querySelector('.app-container');
       const expandedCardModal = document.getElementById('expandModal');
+      const root = document.documentElement;
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
       if (!screen) return;
       let edgeSwipeStartY = null;
       let clearSwipeTimer = null;
 
       const showPrivacyScreen = () => {
+        root.classList.add('is-privacy-active');
         if (app) app.classList.add('is-privacy-blurred');
         if (expandedCardModal) expandedCardModal.classList.add('is-privacy-blurred');
+        if (themeMeta) themeMeta.setAttribute('content', '#d9d5ec');
         screen.classList.add('is-visible');
       };
       const hidePrivacyScreen = () => {
         clearTimeout(clearSwipeTimer);
         screen.classList.remove('is-visible');
+        root.classList.remove('is-privacy-active');
         if (app) app.classList.remove('is-privacy-blurred');
         if (expandedCardModal) expandedCardModal.classList.remove('is-privacy-blurred');
+        if (themeMeta) themeMeta.setAttribute('content', '#303790');
       };
 
+      // Home Screen web app บางรุ่นไม่ส่ง blur ตอนเริ่มปัดเปิด App Switcher
+      // จึงปิดบังทันทีเมื่อเริ่มปัดขึ้นจากขอบล่างของหน้าจอ
       document.addEventListener('touchstart', (event) => {
         const touch = event.touches && event.touches[0];
         if (!touch) return;
         edgeSwipeStartY = touch.clientY >= window.innerHeight - 36 ? touch.clientY : null;
+        // ถ้ากลับมาแล้ว iOS ไม่ส่ง focus/visibility กลับมา ให้แตะหน้าจอเพื่อคืนภาพทันที
         if (edgeSwipeStartY === null && document.visibilityState === 'visible') {
           hidePrivacyScreen();
         }
@@ -830,6 +782,7 @@
         if (document.visibilityState === 'visible') hidePrivacyScreen();
       });
     })();
+
     let autoSlideInterval;
     let userTouching = false;
     let isJumping = false;
@@ -901,7 +854,7 @@
       else if (i === REAL + 1) jumpTo(1);
     }
 
-    function updateDots(index) {
+    function updateCarouselDots(index) {
       dots.forEach((d, i) => d.classList.toggle('active', i === index));
     }
 
@@ -925,16 +878,13 @@
         fixIfOnClone();
         const i = nearestElIndex();
         currentIndex = (i - 1 + REAL) % REAL;
-        updateDots(currentIndex);
+        updateCarouselDots(currentIndex);
       }, 80);
     }, { passive: true });
 
     function updateBannerWidths() {
-      const wrapperWidth = carouselWrapper.clientWidth; 
-      const targetWidth = wrapperWidth * 0.80; 
-      
-      const banners = carouselTrack.querySelectorAll('.banner');
-      banners.forEach(banner => {
+      const targetWidth = carouselWrapper.clientWidth * 0.80;
+      carouselTrack.querySelectorAll('.banner').forEach(banner => {
         banner.style.width = targetWidth + 'px';
       });
     }
@@ -955,9 +905,9 @@
     }
 
     let pinCode = "";
-    const correctPin = "12345678"; 
+    const correctPin = "12345678";
     let isFlipped = false;
-    let isUnlocked = false; 
+    let isUnlocked = false;
     let hasFrontImage = false;
     let hasBackImage = false;
 
@@ -975,7 +925,7 @@
     };
 
     function handleActionClick(action, event) {
-      event.stopPropagation(); 
+      event.stopPropagation();
       if (!isUnlocked) {
         alert('กรุณาคลิกที่บัตรเพื่อใส่รหัสผ่านก่อนใช้งาน');
         showPinModal(event);
@@ -986,21 +936,27 @@
       else if (action === 'flip') flipCard();
     }
 
+    // แบนเนอร์ / ประกาศ: ใส่รูปลงช่องตามชื่อ (banner1-2, ann1-5)
+    function setSlotImage(type, url) {
+      const prefix = type.startsWith('banner') ? 'banner' : 'ann';
+      const n = type.slice(-1);
+      const img = document.getElementById(prefix + 'Img' + n);
+      const bg = document.getElementById(prefix + 'Bg' + n);
+      if (!img || !bg) return;
+      img.src = url;
+      img.style.display = 'block';
+      bg.style.display = 'none';
+    }
+
+    const SLOT_TYPES = ['banner1', 'banner2', 'ann1', 'ann2', 'ann3', 'ann4', 'ann5'];
+
     function loadImagesFromStorage() {
       const savedAvatar = localStorage.getItem('thaid_avatar');
       const savedFront = localStorage.getItem('thaid_front');
       const savedBack = localStorage.getItem('thaid_back');
-      const savedBanner1 = localStorage.getItem('thaid_banner1');
-      const savedBanner2 = localStorage.getItem('thaid_banner2');
-      
-      const savedAnn1 = localStorage.getItem('thaid_ann1');
-      const savedAnn2 = localStorage.getItem('thaid_ann2');
-      const savedAnn3 = localStorage.getItem('thaid_ann3');
-      const savedAnn4 = localStorage.getItem('thaid_ann4');
-      const savedAnn5 = localStorage.getItem('thaid_ann5');
 
       if (savedAvatar) document.getElementById('avatarImg').style.backgroundImage = `url('${savedAvatar}')`;
-      
+
       if (savedFront) {
         const img = document.getElementById('idFrontImg');
         img.src = savedFront;
@@ -1008,7 +964,7 @@
         document.getElementById('frontUploadPrompt').style.display = 'none';
         hasFrontImage = true;
       }
-      
+
       if (savedBack) {
         const img = document.getElementById('idBackImg');
         img.src = savedBack;
@@ -1017,25 +973,12 @@
         hasBackImage = true;
       }
 
-      if (savedBanner1) {
-        document.getElementById('bannerImg1').src = savedBanner1;
-        document.getElementById('bannerImg1').style.display = 'block';
-        document.getElementById('bannerBg1').style.display = 'none'; 
-      }
+      SLOT_TYPES.forEach(type => {
+        const saved = localStorage.getItem('thaid_' + type);
+        if (saved) setSlotImage(type, saved);
+      });
 
-      if (savedBanner2) {
-        document.getElementById('bannerImg2').src = savedBanner2;
-        document.getElementById('bannerImg2').style.display = 'block';
-        document.getElementById('bannerBg2').style.display = 'none'; 
-      }
-      
       syncClones();
-
-      if (savedAnn1) { document.getElementById('annImg1').src = savedAnn1; document.getElementById('annImg1').style.display = 'block'; document.getElementById('annBg1').style.display = 'none'; }
-      if (savedAnn2) { document.getElementById('annImg2').src = savedAnn2; document.getElementById('annImg2').style.display = 'block'; document.getElementById('annBg2').style.display = 'none'; }
-      if (savedAnn3) { document.getElementById('annImg3').src = savedAnn3; document.getElementById('annImg3').style.display = 'block'; document.getElementById('annBg3').style.display = 'none'; }
-      if (savedAnn4) { document.getElementById('annImg4').src = savedAnn4; document.getElementById('annImg4').style.display = 'block'; document.getElementById('annBg4').style.display = 'none'; }
-      if (savedAnn5) { document.getElementById('annImg5').src = savedAnn5; document.getElementById('annImg5').style.display = 'block'; document.getElementById('annBg5').style.display = 'none'; }
     }
 
     function handleCardClick(event) {
@@ -1055,7 +998,7 @@
       if (event) event.stopPropagation();
       document.getElementById('pinModal').classList.add('show');
       pinCode = "";
-      updateDots();
+      updatePinDots();
     }
 
     function closePinModal() {
@@ -1065,7 +1008,7 @@
     function inputPin(num) {
       if (pinCode.length < 8) {
         pinCode += num;
-        updateDots();
+        updatePinDots();
         if (pinCode.length === 8) {
           setTimeout(() => {
             if (pinCode === correctPin) {
@@ -1073,7 +1016,7 @@
             } else {
               alert("❌ รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่");
               pinCode = "";
-              updateDots();
+              updatePinDots();
             }
           }, 300);
         }
@@ -1082,14 +1025,12 @@
 
     function deletePin() {
       pinCode = pinCode.slice(0, -1);
-      updateDots();
+      updatePinDots();
     }
 
-    function updateDots() {
-      const pinDots = document.querySelectorAll('.dot');
-      pinDots.forEach((dot, index) => {
-        if (index < pinCode.length) dot.classList.add('filled');
-        else dot.classList.remove('filled');
+    function updatePinDots() {
+      document.querySelectorAll('#pinDots .dot').forEach((dot, index) => {
+        dot.classList.toggle('filled', index < pinCode.length);
       });
     }
 
@@ -1105,8 +1046,7 @@
       if (!isUnlocked) return;
       const card = document.getElementById('myIdCard');
       isFlipped = !isFlipped;
-      if (isFlipped) card.classList.add('is-flipped');
-      else card.classList.remove('is-flipped');
+      card.classList.toggle('is-flipped', isFlipped);
     }
 
     function expandCard() {
@@ -1128,8 +1068,7 @@
     }
 
     function flipExpandedCard() {
-      const expandedCard = document.getElementById('expandedCard');
-      expandedCard.classList.toggle('is-flipped');
+      document.getElementById('expandedCard').classList.toggle('is-flipped');
     }
 
     function handleImageUpload(event, type) {
@@ -1138,81 +1077,37 @@
         const reader = new FileReader();
         reader.onload = function(e) {
           const imageUrl = e.target.result;
-          
+
           if (type === 'avatar') {
             document.getElementById('avatarImg').style.backgroundImage = `url('${imageUrl}')`;
-            localStorage.setItem('thaid_avatar', imageUrl);
           } else if (type === 'front') {
             const img = document.getElementById('idFrontImg');
             img.src = imageUrl;
             img.style.display = 'block';
             document.getElementById('frontUploadPrompt').style.display = 'none';
             hasFrontImage = true;
-            localStorage.setItem('thaid_front', imageUrl);
           } else if (type === 'back') {
             const img = document.getElementById('idBackImg');
             img.src = imageUrl;
             img.style.display = 'block';
             document.getElementById('backUploadPrompt').style.display = 'none';
             hasBackImage = true;
-            localStorage.setItem('thaid_back', imageUrl);
-          } else if (type === 'banner1') {
-            document.getElementById('bannerImg1').src = imageUrl;
-            document.getElementById('bannerImg1').style.display = 'block';
-            document.getElementById('bannerBg1').style.display = 'none';
-            localStorage.setItem('thaid_banner1', imageUrl);
-          } else if (type === 'banner2') {
-            document.getElementById('bannerImg2').src = imageUrl;
-            document.getElementById('bannerImg2').style.display = 'block';
-            document.getElementById('bannerBg2').style.display = 'none';
-            localStorage.setItem('thaid_banner2', imageUrl);
-          } else if (type === 'ann1') {
-            document.getElementById('annImg1').src = imageUrl;
-            document.getElementById('annImg1').style.display = 'block';
-            document.getElementById('annBg1').style.display = 'none';
-            localStorage.setItem('thaid_ann1', imageUrl);
-          } else if (type === 'ann2') {
-            document.getElementById('annImg2').src = imageUrl;
-            document.getElementById('annImg2').style.display = 'block';
-            document.getElementById('annBg2').style.display = 'none';
-            localStorage.setItem('thaid_ann2', imageUrl);
-          } else if (type === 'ann3') {
-            document.getElementById('annImg3').src = imageUrl;
-            document.getElementById('annImg3').style.display = 'block';
-            document.getElementById('annBg3').style.display = 'none';
-            localStorage.setItem('thaid_ann3', imageUrl);
-          } else if (type === 'ann4') {
-            document.getElementById('annImg4').src = imageUrl;
-            document.getElementById('annImg4').style.display = 'block';
-            document.getElementById('annBg4').style.display = 'none';
-            localStorage.setItem('thaid_ann4', imageUrl);
-          } else if (type === 'ann5') {
-            document.getElementById('annImg5').src = imageUrl;
-            document.getElementById('annImg5').style.display = 'block';
-            document.getElementById('annBg5').style.display = 'none';
-            localStorage.setItem('thaid_ann5', imageUrl);
+          } else if (SLOT_TYPES.includes(type)) {
+            setSlotImage(type, imageUrl);
           }
 
+          try { localStorage.setItem('thaid_' + type, imageUrl); } catch (err) { console.warn(err); }
           syncClones();
         };
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
       }
-      event.target.value = ''; 
+      event.target.value = '';
     }
 
     function resetImages() {
-      if(confirm('คุณต้องการล้างรูปภาพทั้งหมดและเริ่มต้นใหม่หรือไม่?')) {
-        localStorage.removeItem('thaid_avatar');
-        localStorage.removeItem('thaid_front');
-        localStorage.removeItem('thaid_back');
-        localStorage.removeItem('thaid_banner1');
-        localStorage.removeItem('thaid_banner2');
-        localStorage.removeItem('thaid_ann1');
-        localStorage.removeItem('thaid_ann2');
-        localStorage.removeItem('thaid_ann3');
-        localStorage.removeItem('thaid_ann4');
-        localStorage.removeItem('thaid_ann5');
-        location.reload(); 
+      if (confirm('คุณต้องการล้างรูปภาพทั้งหมดและเริ่มต้นใหม่หรือไม่?')) {
+        ['avatar', 'front', 'back', ...SLOT_TYPES].forEach(k => localStorage.removeItem('thaid_' + k));
+        location.reload();
       }
     }
   </script>
