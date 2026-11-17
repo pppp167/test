@@ -769,9 +769,10 @@
       window.addEventListener('pagehide', showPrivacyScreen);
       window.addEventListener('pageshow', hidePrivacyScreen);
       window.addEventListener('blur', showPrivacyScreen);
-      window.addEventListener('focus', () => {
-        if (document.visibilityState === 'visible') hidePrivacyScreen();
-      });
+      // บางครั้ง iOS ส่ง focus ก่อนอัปเดต visibilityState; ล้างทันทีเมื่อได้ focus กลับมา
+      window.addEventListener('focus', hidePrivacyScreen);
+      window.addEventListener('resume', hidePrivacyScreen);
+      document.addEventListener('resume', hidePrivacyScreen);
     })();
 
     let autoSlideInterval;
