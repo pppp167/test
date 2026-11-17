@@ -46,13 +46,8 @@
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 120ms ease, visibility 120ms ease;
-      background:
-        radial-gradient(ellipse at 35% 25%, rgba(255,255,255,.78), transparent 38%),
-        radial-gradient(ellipse at 72% 58%, rgba(177,174,255,.75), transparent 43%),
-        linear-gradient(155deg, #555be0 0%, #aaa9f3 43%, #f2edf4 76%, #e7dfe9 100%);
-      -webkit-backdrop-filter: blur(28px) saturate(1.15);
-      backdrop-filter: blur(28px) saturate(1.15);
+      transition: none;
+      background: transparent;
     }
 
     #privacy-screen.is-visible {
@@ -82,6 +77,13 @@
       flex-direction: column;
       box-shadow: none;
       overflow: hidden;
+    }
+
+    /* เบลอหน้าแอปจริงทั้งหน้าเหมือนตัวอย่าง */
+    .app-container.is-privacy-blurred {
+      filter: blur(24px);
+      transform: scale(1.06);
+      transform-origin: center center;
     }
 
     input[type="file"] { display: none; }
@@ -761,13 +763,60 @@
     // ซ่อนหน้าเว็บในภาพตัวอย่างเมื่อ iOS ส่งเว็บไปอยู่เบื้องหลัง
     (function setupAppSwitcherPrivacy() {
       const screen = document.getElementById('privacy-screen');
+      const app = document.querySelector('.app-container');
       if (!screen) return;
+      let edgeSwipeStartY = null;
+      let clearSwipeTimer = null;
 
-      const showPrivacyScreen = () => screen.classList.add('is-visible');
-      const hidePrivacyScreen = () => screen.classList.remove('is-visible');
+      const showPrivacyScreen = () => {
+        if (app) app.classList.add('is-privacy-blurred');
+        screen.classList.add('is-visible');
+      };
+      const hidePrivacyScreen = () => {
+        clearTimeout(clearSwipeTimer);
+        screen.classList.remove('is-visible');
+        if (app) app.classList.remove('is-privacy-blurred');
+      };
+
+      // Home Screen web app บางรุ่นไม่ส่ง blur ตอนเริ่มปัดเปิด App Switcher
+      // จึงปิดบังทันทีเมื่อเริ่มปัดขึ้นจากขอบล่างของหน้าจอ
+      document.addEventListener('touchstart', (event) => {
+        const touch = event.touches && event.touches[0];
+        if (!touch) return;
+        edgeSwipeStartY = touch.clientY >= window.innerHeight - 36 ? touch.clientY : null;
+        // ถ้ากลับมาแล้ว iOS ไม่ส่ง focus/visibility กลับมา ให้แตะหน้าจอเพื่อคืนภาพทันที
+        if (edgeSwipeStartY === null && document.visibilityState === 'visible') {
+          hidePrivacyScreen();
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchmove', (event) => {
+        const touch = event.touches && event.touches[0];
+        if (edgeSwipeStartY === null || !touch) return;
+        if (edgeSwipeStartY - touch.clientY > 20) {
+          showPrivacyScreen();
+          clearTimeout(clearSwipeTimer);
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchend', () => {
+        if (edgeSwipeStartY !== null) {
+          clearSwipeTimer = setTimeout(() => {
+            if (document.visibilityState === 'visible') hidePrivacyScreen();
+          }, 1400);
+        }
+        edgeSwipeStartY = null;
+      }, { passive: true });
 
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') showPrivacyScreen();
+        else hidePrivacyScreen();
+      });
+      document.addEventListener('webkitvisibilitychange', () => {
+        const isHidden = typeof document.webkitHidden === 'boolean'
+          ? document.webkitHidden
+          : document.hidden;
+        if (isHidden) showPrivacyScreen();
         else hidePrivacyScreen();
       });
 
