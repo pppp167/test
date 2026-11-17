@@ -11,13 +11,10 @@
   
   <title>ThaID Full Feature</title>
 
-  <!-- 🌟 เพิ่มส่วนนี้เพื่อเปลี่ยนไอคอนบนหน้าจอโฮม (Home Screen Icon) -->
-  <!-- รูปสำหรับ iPhone / iPad -->
+  <!-- 🌟 ส่วนหัวสำหรับไอคอน -->
   <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
-  <!-- รูปสำหรับ Android / Web App -->
   <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
   <link rel="icon" type="image/png" sizes="512x512" href="logo.png">
-  <!-- ------------------------------------------------ -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,15 +28,18 @@
     html, body {
       height: 100%;
       margin: 0;
-      background: #303790;
+      background: #303790; /* สีพื้นหลังหลัก */
       overflow: hidden;
     }
 
-    /* หน้าปิดบังข้อมูลที่แสดงในภาพตัวอย่างของ App Switcher */
+    /* 🌟 แก้ไขหน้าจอเบลอ */
     #privacy-screen {
       position: fixed;
-      inset: -48px;
-      z-index: 2147483647;
+      top: 0; left: 0; right: 0; bottom: 0; /* เปลี่ยนเป็น 0 ทั้ง 4 ด้าน เพื่อให้เต็มจอ 100% */
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh; /* รองรับ Dynamic Viewport Height สำหรับ iOS */
+      z-index: 2147483647; /* ลอยอยู่บนสุดเสมอ */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -47,7 +47,7 @@
       opacity: 0;
       pointer-events: none;
       transition: none;
-      background: rgba(255, 255, 255, 0.01);
+      background: rgba(48, 55, 144, 0.3); /* ใส่สีน้ำเงินเข้มจางๆ เพื่อไม่ให้แถบขาวโผล่ */
       -webkit-backdrop-filter: blur(24px) saturate(0.72) brightness(1.08);
       backdrop-filter: blur(24px) saturate(0.72) brightness(1.08);
     }
@@ -81,7 +81,6 @@
       overflow: hidden;
     }
 
-    /* เบลอหน้าแอปจริงทั้งหน้าเหมือนตัวอย่าง */
     .app-container.is-privacy-blurred {
       background: linear-gradient(165deg, #7773df 0%, #aaa6eb 36%, #d9d5ec 68%, #f0edf2 100%);
     }
@@ -785,13 +784,10 @@
         if (expandedCardModal) expandedCardModal.classList.remove('is-privacy-blurred');
       };
 
-      // Home Screen web app บางรุ่นไม่ส่ง blur ตอนเริ่มปัดเปิด App Switcher
-      // จึงปิดบังทันทีเมื่อเริ่มปัดขึ้นจากขอบล่างของหน้าจอ
       document.addEventListener('touchstart', (event) => {
         const touch = event.touches && event.touches[0];
         if (!touch) return;
         edgeSwipeStartY = touch.clientY >= window.innerHeight - 36 ? touch.clientY : null;
-        // ถ้ากลับมาแล้ว iOS ไม่ส่ง focus/visibility กลับมา ให้แตะหน้าจอเพื่อคืนภาพทันที
         if (edgeSwipeStartY === null && document.visibilityState === 'visible') {
           hidePrivacyScreen();
         }
