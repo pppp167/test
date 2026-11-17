@@ -765,9 +765,44 @@
 
       const showPrivacyScreen = () => screen.classList.add('is-visible');
       const hidePrivacyScreen = () => screen.classList.remove('is-visible');
+      let edgeSwipeStartY = null;
+      let clearSwipeTimer = null;
+
+      // Home Screen web app บางรุ่นไม่ส่ง blur ตอนเริ่มปัดเปิด App Switcher
+      // จึงปิดบังทันทีเมื่อเริ่มปัดขึ้นจากขอบล่างของหน้าจอ
+      document.addEventListener('touchstart', (event) => {
+        const touch = event.touches && event.touches[0];
+        if (!touch) return;
+        edgeSwipeStartY = touch.clientY >= window.innerHeight - 36 ? touch.clientY : null;
+      }, { passive: true });
+
+      document.addEventListener('touchmove', (event) => {
+        const touch = event.touches && event.touches[0];
+        if (edgeSwipeStartY === null || !touch) return;
+        if (edgeSwipeStartY - touch.clientY > 20) {
+          showPrivacyScreen();
+          clearTimeout(clearSwipeTimer);
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchend', () => {
+        if (edgeSwipeStartY !== null) {
+          clearSwipeTimer = setTimeout(() => {
+            if (document.visibilityState === 'visible') hidePrivacyScreen();
+          }, 1400);
+        }
+        edgeSwipeStartY = null;
+      }, { passive: true });
 
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') showPrivacyScreen();
+        else hidePrivacyScreen();
+      });
+      document.addEventListener('webkitvisibilitychange', () => {
+        const isHidden = typeof document.webkitHidden === 'boolean'
+          ? document.webkitHidden
+          : document.hidden;
+        if (isHidden) showPrivacyScreen();
         else hidePrivacyScreen();
       });
 
@@ -1166,3 +1201,4 @@
   </script>
 </body>
 </html>
+
