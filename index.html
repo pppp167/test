@@ -81,14 +81,19 @@
 
     /* เบลอหน้าแอปจริงทั้งหน้าเหมือนตัวอย่าง */
     .app-container.is-privacy-blurred {
-      filter: blur(48px) saturate(0.72) brightness(1.08);
-      transform: scale(1.12);
+      background: linear-gradient(165deg, #7773df 0%, #aaa6eb 36%, #d9d5ec 68%, #f0edf2 100%);
+      filter: blur(24px) saturate(0.72) brightness(1.08);
+      transform: scale(1.06);
       transform-origin: center center;
     }
 
+    .app-container.is-privacy-blurred header {
+      background: linear-gradient(180deg, #7975e0 0%, #a5a1eb 100%);
+    }
+
     .expand-modal.is-privacy-blurred {
-      filter: blur(48px) saturate(0.72) brightness(1.08);
-      transform: scale(1.08);
+      filter: blur(24px) saturate(0.72) brightness(1.08);
+      transform: scale(1.06);
       transform-origin: center center;
     }
 
