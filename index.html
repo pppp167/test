@@ -7,12 +7,12 @@
   <meta name="theme-color" content="#303790">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <!-- 🌟 แก้ไขตรงนี้: เปลี่ยนจาก black-translucent เป็น default -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- 🌟 1. เปลี่ยนกลับเป็น black-translucent เพื่อให้หน้าเว็บคลุมพื้นที่ 100% -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <title>ThaID Full Feature</title>
 
-  <!-- ไอคอนบนหน้าจอโฮม -->
   <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
   <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
   <link rel="icon" type="image/png" sizes="512x512" href="logo.png">
@@ -33,10 +33,11 @@
       overflow: hidden;
     }
 
-    /* ===== Privacy screen (เบลอคลุมทั้งหน้าจอ) ===== */
+    /* ===== 🌟 2. Privacy screen ให้ทับและเบลอเต็มพื้นที่ ไม่สนใจ Safe Area ===== */
     #privacy-screen {
       position: fixed;
-      top: -100px; left: -100px; right: -100px; bottom: -100px;
+      /* ใช้ -100px ครอบทุกด้านเพื่อให้แน่ใจว่ามันทับ Safe Area และรอยบากทั้งหมด */
+      top: -100px; left: -100px; right: -100px; bottom: -100px; 
       z-index: 2147483647;
       visibility: hidden;
       opacity: 0;
@@ -82,13 +83,14 @@
 
     input[type="file"] { display: none; }
 
+    /* ===== 🌟 3. Header ดันเนื้อหาลงมาไม่ให้ทับแถบสถานะ ===== */
     header {
       color: white;
       background: #303790;
       flex-shrink: 0;
       position: relative;
       z-index: 50;
-      /* เว้นระยะด้านบนด้วย safe-area-inset-top */
+      /* ใช้ env(safe-area-inset-top) ดันคำว่าสวัสดีลงมาให้พ้นรอยบาก */
       padding: calc(env(safe-area-inset-top) + 12px) 20px 8px 20px;
       isolation: isolate;
       backdrop-filter: none;
