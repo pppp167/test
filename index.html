@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   
-  <!-- 🌟 1. เปลี่ยนกลับเป็น black-translucent เพื่อให้หน้าเว็บคลุมพื้นที่ 100% -->
+  <!-- ใช้ black-translucent เพื่อให้หน้าเว็บคลุมพื้นที่ 100% -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <title>ThaID Full Feature</title>
@@ -33,19 +33,20 @@
       overflow: hidden;
     }
 
-    /* ===== Privacy toggle: โปร่งใส ไม่วางแผ่นสีทับเนื้อหา ===== */
+    /* ===== 🌟 แก้ไขหน้า Privacy Screen ===== */
     #privacy-screen {
       position: fixed;
-      /* ใช้ -100px ครอบทุกด้านเพื่อให้แน่ใจว่ามันทับ Safe Area และรอยบากทั้งหมด */
-      top: -100px; left: -100px; right: -100px; bottom: -100px; 
+      /* ขยายขอบออกไป 20px เพื่อให้คลุม Safe Area */
+      top: -20px; left: -20px; right: -20px; bottom: -20px; 
       z-index: 2147483647;
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
       transition: none;
-      background: transparent;
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
+      /* 🌟 ใส่สีขาวโปร่งแสงจางๆ (0.01) เพื่อให้ iOS ยอมเรนเดอร์เอฟเฟกต์เบลอ */
+      background: rgba(255, 255, 255, 0.01); 
+      -webkit-backdrop-filter: blur(24px) saturate(0.85);
+      backdrop-filter: blur(24px) saturate(0.85);
     }
 
     #privacy-screen.is-visible {
@@ -81,35 +82,15 @@
       overflow: hidden;
     }
 
-    /* เบลอทั้งหน้าแอปโดยตรง เพื่อไม่ให้ชั้น overlay บังตัวหนังสือ */
-    .app-container.is-privacy-blurred {
-      background: linear-gradient(165deg, #8f8be6 0%, #bdb9ee 40%, #e3e0f0 72%, #f3f1f6 100%);
-      filter: blur(24px);
-      transform: scale(1.06);
-      transform-origin: center center;
-    }
-
-    .app-container.is-privacy-blurred header {
-      background: linear-gradient(180deg, #8f8be6 0%, #bdb9ee 100%);
-    }
-
-    /* หน้าขยายบัตรเป็นชั้นแยกจากหน้าแอปหลัก จึงเบลอแยกด้วย */
-    .expand-modal.is-privacy-blurred {
-      filter: blur(24px);
-      transform: scale(1.04);
-      transform-origin: center center;
-    }
-
     input[type="file"] { display: none; }
 
-    /* ===== 🌟 3. Header ดันเนื้อหาลงมาไม่ให้ทับแถบสถานะ ===== */
     header {
       color: white;
       background: #303790;
       flex-shrink: 0;
       position: relative;
       z-index: 50;
-      /* ใช้ env(safe-area-inset-top) ดันคำว่าสวัสดีลงมาให้พ้นรอยบาก */
+      /* ดันเนื้อหาลงมาไม่ให้ทับรอยบาก */
       padding: calc(env(safe-area-inset-top) + 12px) 20px 8px 20px;
       isolation: isolate;
       backdrop-filter: none;
