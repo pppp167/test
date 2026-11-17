@@ -10,7 +10,15 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   
   <title>ThaID Full Feature</title>
-  
+
+  <!-- 🌟 เพิ่มส่วนนี้เพื่อเปลี่ยนไอคอนบนหน้าจอโฮม (Home Screen Icon) -->
+  <!-- รูปสำหรับ iPhone / iPad -->
+  <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
+  <!-- รูปสำหรับ Android / Web App -->
+  <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="logo.png">
+  <!-- ------------------------------------------------ -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+Sans+TH:wght@400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,6 +33,31 @@
       margin: 0;
       background: #303790;
       overflow: hidden;
+    }
+
+    /* หน้าปิดบังข้อมูลที่แสดงในภาพตัวอย่างของ App Switcher */
+    #privacy-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 120ms ease, visibility 120ms ease;
+      background:
+        radial-gradient(ellipse at 35% 25%, rgba(255,255,255,.78), transparent 38%),
+        radial-gradient(ellipse at 72% 58%, rgba(177,174,255,.75), transparent 43%),
+        linear-gradient(155deg, #555be0 0%, #aaa9f3 43%, #f2edf4 76%, #e7dfe9 100%);
+      -webkit-backdrop-filter: blur(28px) saturate(1.15);
+      backdrop-filter: blur(28px) saturate(1.15);
+    }
+
+    #privacy-screen.is-visible {
+      visibility: visible;
+      opacity: 1;
     }
 
     body {
@@ -129,10 +162,9 @@
       margin-top: 0;
     }
 
-    /* 🌟 ปรับความเร็วเป็น 1.2s */
     .card-inner {
       width: 100%; height: 100%; 
-      transition: transform 1.15s cubic-bezier(0.4, 0, 0.2, 1); /* เพิ่มเป็น 1.2s */
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d; position: relative; cursor: pointer;
     }
 
@@ -410,13 +442,12 @@
       display: flex; justify-content: center; align-items: center;
     }
 
-    /* 🌟 ปรับความเร็วเป็น 1.2s */
     .expand-card-inner {
       flex-shrink: 0; 
       width: min(calc(96cqh), calc((96cqw) * 1.58));
       aspect-ratio: 1.58 / 1;
       position: relative; 
-      transition: transform 1.15s cubic-bezier(0.4, 0, 0.2, 1); /* เพิ่มเป็น 1.2s */
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d;
       cursor: pointer; perspective: 1000px;
     }
@@ -457,6 +488,7 @@
   </style>
 </head>
 <body>
+  <div id="privacy-screen" aria-hidden="true"></div>
 
   <input type="file" id="uploadBanner1" accept="image/*" onchange="handleImageUpload(event, 'banner1')">
   <input type="file" id="uploadBanner2" accept="image/*" onchange="handleImageUpload(event, 'banner2')">
@@ -726,6 +758,26 @@
   </div>
 
   <script>
+    // ซ่อนหน้าเว็บในภาพตัวอย่างเมื่อ iOS ส่งเว็บไปอยู่เบื้องหลัง
+    (function setupAppSwitcherPrivacy() {
+      const screen = document.getElementById('privacy-screen');
+      if (!screen) return;
+
+      const showPrivacyScreen = () => screen.classList.add('is-visible');
+      const hidePrivacyScreen = () => screen.classList.remove('is-visible');
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') showPrivacyScreen();
+        else hidePrivacyScreen();
+      });
+
+      window.addEventListener('pagehide', showPrivacyScreen);
+      window.addEventListener('pageshow', hidePrivacyScreen);
+      window.addEventListener('blur', showPrivacyScreen);
+      window.addEventListener('focus', () => {
+        if (document.visibilityState === 'visible') hidePrivacyScreen();
+      });
+    })();
     let autoSlideInterval;
     let userTouching = false;
     let isJumping = false;
