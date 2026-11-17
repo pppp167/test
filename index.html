@@ -38,7 +38,7 @@
     /* หน้าปิดบังข้อมูลที่แสดงในภาพตัวอย่างของ App Switcher */
     #privacy-screen {
       position: fixed;
-      inset: 0;
+      inset: -48px;
       z-index: 2147483647;
       display: flex;
       align-items: center;
@@ -47,7 +47,9 @@
       opacity: 0;
       pointer-events: none;
       transition: none;
-      background: transparent;
+      background: rgba(255, 255, 255, 0.01);
+      -webkit-backdrop-filter: blur(24px) saturate(0.72) brightness(1.08);
+      backdrop-filter: blur(24px) saturate(0.72) brightness(1.08);
     }
 
     #privacy-screen.is-visible {
@@ -82,19 +84,10 @@
     /* เบลอหน้าแอปจริงทั้งหน้าเหมือนตัวอย่าง */
     .app-container.is-privacy-blurred {
       background: linear-gradient(165deg, #7773df 0%, #aaa6eb 36%, #d9d5ec 68%, #f0edf2 100%);
-      filter: blur(24px) saturate(0.72) brightness(1.08);
-      transform: scale(1.06);
-      transform-origin: center center;
     }
 
     .app-container.is-privacy-blurred header {
       background: linear-gradient(180deg, #7975e0 0%, #a5a1eb 100%);
-    }
-
-    .expand-modal.is-privacy-blurred {
-      filter: blur(24px) saturate(0.72) brightness(1.08);
-      transform: scale(1.06);
-      transform-origin: center center;
     }
 
     input[type="file"] { display: none; }
