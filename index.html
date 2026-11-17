@@ -81,8 +81,14 @@
 
     /* เบลอหน้าแอปจริงทั้งหน้าเหมือนตัวอย่าง */
     .app-container.is-privacy-blurred {
-      filter: blur(24px);
-      transform: scale(1.06);
+      filter: blur(48px) saturate(0.72) brightness(1.08);
+      transform: scale(1.12);
+      transform-origin: center center;
+    }
+
+    .expand-modal.is-privacy-blurred {
+      filter: blur(48px) saturate(0.72) brightness(1.08);
+      transform: scale(1.08);
       transform-origin: center center;
     }
 
@@ -764,18 +770,21 @@
     (function setupAppSwitcherPrivacy() {
       const screen = document.getElementById('privacy-screen');
       const app = document.querySelector('.app-container');
+      const expandedCardModal = document.getElementById('expandModal');
       if (!screen) return;
       let edgeSwipeStartY = null;
       let clearSwipeTimer = null;
 
       const showPrivacyScreen = () => {
         if (app) app.classList.add('is-privacy-blurred');
+        if (expandedCardModal) expandedCardModal.classList.add('is-privacy-blurred');
         screen.classList.add('is-visible');
       };
       const hidePrivacyScreen = () => {
         clearTimeout(clearSwipeTimer);
         screen.classList.remove('is-visible');
         if (app) app.classList.remove('is-privacy-blurred');
+        if (expandedCardModal) expandedCardModal.classList.remove('is-privacy-blurred');
       };
 
       // Home Screen web app บางรุ่นไม่ส่ง blur ตอนเริ่มปัดเปิด App Switcher
