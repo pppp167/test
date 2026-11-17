@@ -33,7 +33,7 @@
       overflow: hidden;
     }
 
-    /* ===== 🌟 2. Privacy screen ให้ทับและเบลอเต็มพื้นที่ ไม่สนใจ Safe Area ===== */
+    /* ===== Privacy toggle: โปร่งใส ไม่วางแผ่นสีทับเนื้อหา ===== */
     #privacy-screen {
       position: fixed;
       /* ใช้ -100px ครอบทุกด้านเพื่อให้แน่ใจว่ามันทับ Safe Area และรอยบากทั้งหมด */
@@ -44,8 +44,8 @@
       pointer-events: none;
       transition: none;
       background: transparent;
-      -webkit-backdrop-filter: blur(24px) saturate(0.85);
-      backdrop-filter: blur(24px) saturate(0.85);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
     }
 
     #privacy-screen.is-visible {
@@ -79,6 +79,25 @@
       flex-direction: column;
       box-shadow: none;
       overflow: hidden;
+    }
+
+    /* เบลอทั้งหน้าแอปโดยตรง เพื่อไม่ให้ชั้น overlay บังตัวหนังสือ */
+    .app-container.is-privacy-blurred {
+      background: linear-gradient(165deg, #8f8be6 0%, #bdb9ee 40%, #e3e0f0 72%, #f3f1f6 100%);
+      filter: blur(24px);
+      transform: scale(1.06);
+      transform-origin: center center;
+    }
+
+    .app-container.is-privacy-blurred header {
+      background: linear-gradient(180deg, #8f8be6 0%, #bdb9ee 100%);
+    }
+
+    /* หน้าขยายบัตรเป็นชั้นแยกจากหน้าแอปหลัก จึงเบลอแยกด้วย */
+    .expand-modal.is-privacy-blurred {
+      filter: blur(24px);
+      transform: scale(1.04);
+      transform-origin: center center;
     }
 
     input[type="file"] { display: none; }
