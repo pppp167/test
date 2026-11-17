@@ -711,28 +711,14 @@
       const root = document.documentElement;
       if (!screen) return;
       let edgeSwipeStartY = null;
-      let clearSwipeTimer = null;
-      let resumePollTimer = null;
 
       const showPrivacyScreen = () => {
         root.classList.add('is-privacy-active');
         if (app) app.classList.add('is-privacy-blurred');
         if (expandedCardModal) expandedCardModal.classList.add('is-privacy-blurred');
         screen.classList.add('is-visible');
-        if (resumePollTimer === null) {
-          resumePollTimer = window.setInterval(() => {
-            if (document.visibilityState === 'visible' && document.hasFocus()) {
-              hidePrivacyScreen();
-            }
-          }, 300);
-        }
       };
       const hidePrivacyScreen = () => {
-        clearTimeout(clearSwipeTimer);
-        if (resumePollTimer !== null) {
-          clearInterval(resumePollTimer);
-          resumePollTimer = null;
-        }
         screen.classList.remove('is-visible');
         root.classList.remove('is-privacy-active');
         if (app) app.classList.remove('is-privacy-blurred');
@@ -753,16 +739,10 @@
         if (edgeSwipeStartY === null || !touch) return;
         if (edgeSwipeStartY - touch.clientY > 20) {
           showPrivacyScreen();
-          clearTimeout(clearSwipeTimer);
         }
       }, { passive: true });
 
       document.addEventListener('touchend', () => {
-        if (edgeSwipeStartY !== null) {
-          clearSwipeTimer = setTimeout(() => {
-            if (document.visibilityState === 'visible') hidePrivacyScreen();
-          }, 1400);
-        }
         edgeSwipeStartY = null;
       }, { passive: true });
 
