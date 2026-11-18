@@ -152,7 +152,7 @@
     .main-scroll-area::-webkit-scrollbar { display: none; }
 
     .blue-section {
-      padding: 0 16px 10px 16px;
+      padding: 0 clamp(18px, 4vw, 24px) 10px;
       position: relative;
       z-index: 10;
       display: flex;
@@ -163,7 +163,7 @@
 
     .card-wrapper {
       width: 100%;
-      max-width: 350px;
+      max-width: none;
       height: auto;
       aspect-ratio: 1.58 / 1;
       perspective: 1000px;
@@ -403,11 +403,11 @@
     .header-icons-expanded { display: flex; gap: 12px; }
 
     .expand-card-container {
-      /* ใช้พื้นที่ใต้แถวปุ่มจนถึง safe area ด้านล่างเป็นกรอบคำนวณขนาดบัตร */
+      /* เลื่อนพื้นที่จัดบัตรลง 20px ให้เห็นการขยับชัด และยังคำนวณขนาดจากจอเดิม */
       position: absolute;
-      top: calc(env(safe-area-inset-top) + 8px + 46px + 20px + 36px);
+      top: 20px;
       right: 0;
-      bottom: calc(env(safe-area-inset-bottom) + 16px);
+      bottom: -20px;
       left: 0;
       display: flex; justify-content: center; align-items: center;
       container-type: size;
@@ -415,7 +415,12 @@
 
     .expand-card-inner {
       flex-shrink: 0;
-      width: min(calc(96cqh), calc((96cqw) * 1.58));
+      /* ความสูงหลังหมุนไม่เกินจอ และเว้นระยะจากปุ่มด้านบนโดยให้ขอบบนล่างสมดุล */
+      width: min(
+        calc(96cqh),
+        calc((96cqw) * 1.58),
+        calc(100cqh - env(safe-area-inset-top) - env(safe-area-inset-top) - 156px)
+      );
       aspect-ratio: 1.58 / 1;
       position: relative;
       transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
