@@ -403,11 +403,11 @@
     .header-icons-expanded { display: flex; gap: 12px; }
 
     .expand-card-container {
-      /* เลื่อนพื้นที่จัดบัตรลง 20px ให้เห็นการขยับชัด และยังคำนวณขนาดจากจอเดิม */
+      /* เลื่อนพื้นที่จัดบัตรลงจากจุดกึ่งกลางเพียง 12px และยังคำนวณขนาดจากจอเดิม */
       position: absolute;
-      top: 20px;
+      top: 12px;
       right: 0;
-      bottom: -20px;
+      bottom: -12px;
       left: 0;
       display: flex; justify-content: center; align-items: center;
       container-type: size;
@@ -417,9 +417,9 @@
       flex-shrink: 0;
       /* ความสูงหลังหมุนไม่เกินจอ และเว้นระยะจากปุ่มด้านบนโดยให้ขอบบนล่างสมดุล */
       width: min(
-        calc(96cqh),
-        calc((96cqw) * 1.58),
-        calc(100cqh - env(safe-area-inset-top) - env(safe-area-inset-top) - 156px)
+        calc(98cqh),
+        calc((98cqw) * 1.58),
+        calc(100cqh - env(safe-area-inset-top) - env(safe-area-inset-top) - 148px)
       );
       aspect-ratio: 1.58 / 1;
       position: relative;
