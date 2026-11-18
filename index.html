@@ -43,26 +43,26 @@
       overflow: hidden;
     }
 
+    /* ===== Privacy Screen (เบลอใส ไม่มีสีทับ) ===== */
     #privacy-screen {
       position: fixed;
+      /* ขยายขอบออกไป 20px เพื่อให้คลุม Safe Area */
       top: -20px; left: -20px; right: -20px; bottom: -20px;
       z-index: 2147483647;
       pointer-events: none;
       opacity: 0;
       visibility: hidden;
       transition: none;
-      background: rgba(217, 213, 236, 0.85);
+      /* ใสเกือบ 100% แต่ให้ iOS ยอมเรนเดอร์ blur */
+      background: rgba(255, 255, 255, 0.01);
     }
+
+    /* backdrop-filter ใส่เฉพาะตอนแสดง เพื่อไม่ให้ layer เบลอค้างอยู่ตอนใช้งานปกติ */
     #privacy-screen.is-visible {
       opacity: 1;
       visibility: visible;
       -webkit-backdrop-filter: blur(24px);
       backdrop-filter: blur(24px);
-    }
-
-    html.is-privacy-active,
-    html.is-privacy-active body {
-      background: #d9d5ec;
     }
 
     body {
@@ -774,6 +774,7 @@
 
       window.addEventListener('pagehide', showPrivacyScreen);
       window.addEventListener('pageshow', hidePrivacyScreen);
+      // (ลบ listener 'blur' ออกแล้ว เพราะ iOS ยิง blur ตอนเปิดแอป/แตะแถบระบบ ทำให้เบลอค้าง)
       // ล้างทันทีเมื่อได้ focus/resume กลับมา ไม่รอ visibilityState ที่ iOS อาจอัปเดตช้า
       window.addEventListener('focus', hidePrivacyScreen);
       window.addEventListener('resume', hidePrivacyScreen);
