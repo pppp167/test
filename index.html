@@ -403,7 +403,10 @@
     .header-icons-expanded { display: flex; gap: 12px; }
 
     .expand-card-container {
-      position: absolute; top: calc(50% + 24px); left: 50%;
+      /* วางบัตรต่อจากแถวปุ่มด้วยช่องว่างคงที่ 36px; ครึ่งหนึ่งของความสูงบัตรหลังหมุน */
+      position: absolute;
+      top: calc(env(safe-area-inset-top) + 8px + 46px + 20px + 36px + min(48cqh, calc(48cqw * 1.58)));
+      left: 50%;
       width: 100%; height: 100%;
       transform: translate(-50%, -50%) rotate(90deg);
       display: flex; justify-content: center; align-items: center;
