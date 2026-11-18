@@ -740,6 +740,9 @@
         if (expandedCardModal) expandedCardModal.classList.remove('is-privacy-blurred');
       };
 
+      // เปิดหน้าให้คมชัดก่อน แล้วค่อยเปิดเบลอเมื่อเริ่มสลับแอป
+      hidePrivacyScreen();
+
       document.addEventListener('touchstart', (event) => {
         const touch = event.touches && event.touches[0];
         if (!touch) return;
@@ -776,19 +779,17 @@
       window.addEventListener('pagehide', showPrivacyScreen);
       window.addEventListener('pageshow', hidePrivacyScreen);
       window.addEventListener('blur', showPrivacyScreen);
-      // เคลียร์เมื่อ iOS ส่งสัญญาณกลับเข้าแอป และรอ 2 เฟรมให้หน้าเว็บวาดเสร็จก่อน
-      const clearWhenForeground = () => {
-        if (document.visibilityState !== 'visible') return;
-        requestAnimationFrame(() => requestAnimationFrame(hidePrivacyScreen));
-      };
-      window.addEventListener('focus', clearWhenForeground);
-      window.addEventListener('resume', clearWhenForeground);
-      document.addEventListener('resume', clearWhenForeground);
-      window.addEventListener('pageshow', clearWhenForeground);
+      // ล้างทันทีเมื่อได้ focus/resume กลับมา ไม่รอ visibilityState ที่ iOS อาจอัปเดตช้า
+      window.addEventListener('focus', hidePrivacyScreen);
+      window.addEventListener('resume', hidePrivacyScreen);
+      document.addEventListener('resume', hidePrivacyScreen);
 
       // ตรวจตอนเริ่มเปิดแอปด้วย เผื่อเหตุการณ์เริ่มต้นเกิดก่อนติดตั้ง listeners
-      if (document.readyState === 'complete') clearWhenForeground();
-      else window.addEventListener('load', clearWhenForeground, { once: true });
+      const clearOnInitialForeground = () => {
+        if (document.visibilityState === 'visible') hidePrivacyScreen();
+      };
+      if (document.readyState === 'complete') clearOnInitialForeground();
+      else window.addEventListener('load', clearOnInitialForeground, { once: true });
     })();
 
     let autoSlideInterval;
