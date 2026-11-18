@@ -23,6 +23,16 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <script>
+    // Detect an iOS Home Screen web app before layout so only that mode gets extra top clearance.
+    (function markHomeScreenApp() {
+      const standalone = window.navigator.standalone === true ||
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.matchMedia('(display-mode: fullscreen)').matches;
+      if (standalone) document.documentElement.classList.add('is-home-screen-app');
+    })();
+  </script>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -91,10 +101,15 @@
       position: relative;
       z-index: 50;
       /* ดันเนื้อหาลงมาไม่ให้ทับรอยบาก */
-      padding: calc(env(safe-area-inset-top) + 18px) 20px 8px 20px;
+      padding: max(calc(env(safe-area-inset-top) + 8px), 62px) 20px 8px 20px;
       isolation: isolate;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
+    }
+
+    /* Home Screen apps can draw under the translucent iOS status bar. Keep a larger top inset there. */
+    html.is-home-screen-app header {
+      padding-top: max(calc(env(safe-area-inset-top) + 12px), 82px);
     }
 
     .header-top { display: flex; justify-content: space-between; align-items: center; }
