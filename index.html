@@ -61,8 +61,8 @@
     #privacy-screen.is-visible {
       opacity: 1;
       visibility: visible;
-      -webkit-backdrop-filter: blur(24px);
-      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(32px);
+      backdrop-filter: blur(32px);
     }
 
     body {
@@ -189,9 +189,9 @@
 
     .lock-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
+      background: rgba(255, 255, 255, 0.22);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
       border-radius: 12px;
       display: flex; flex-direction: column;
       justify-content: center; align-items: center; z-index: 10;
