@@ -43,25 +43,21 @@
       overflow: hidden;
     }
 
-    /* ===== 🌟 แก้ไขหน้า Privacy Screen ===== */
     #privacy-screen {
       position: fixed;
-      /* ขยายขอบออกไป 20px เพื่อให้คลุม Safe Area */
-      top: -20px; left: -20px; right: -20px; bottom: -20px; 
+      top: -20px; left: -20px; right: -20px; bottom: -20px;
       z-index: 2147483647;
-      visibility: hidden;
-      opacity: 0;
       pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
       transition: none;
-      /* 🌟 ใส่สีขาวโปร่งแสงจางๆ (0.01) เพื่อให้ iOS ยอมเรนเดอร์เอฟเฟกต์เบลอ */
-      background: rgba(255, 255, 255, 0.01); 
-      -webkit-backdrop-filter: blur(24px) saturate(0.85);
-      backdrop-filter: blur(24px) saturate(0.85);
+      background: rgba(217, 213, 236, 0.85);
     }
-
     #privacy-screen.is-visible {
-      visibility: visible;
       opacity: 1;
+      visibility: visible;
+      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(24px);
     }
 
     html.is-privacy-active,
@@ -778,7 +774,6 @@
 
       window.addEventListener('pagehide', showPrivacyScreen);
       window.addEventListener('pageshow', hidePrivacyScreen);
-      window.addEventListener('blur', showPrivacyScreen);
       // ล้างทันทีเมื่อได้ focus/resume กลับมา ไม่รอ visibilityState ที่ iOS อาจอัปเดตช้า
       window.addEventListener('focus', hidePrivacyScreen);
       window.addEventListener('resume', hidePrivacyScreen);
