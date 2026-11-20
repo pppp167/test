@@ -200,49 +200,22 @@
     .lock-icon-svg { width: 56px; height: 56px; fill: #333; margin-bottom: 12px; }
     .lock-text { font-size: 17px; font-weight: 600; color: #333; }
 
-.card-action-bar {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-}
+.card-action-bar { margin-top: 10px; display: flex; justify-content: center; gap: 12px; width: 100%; }
 
-.card-action-btn {
-  height: 50px;
-  background: rgba(12, 20, 91, 0.82);
-  color: white;
-  border: none;
-  padding: 0 clamp(14px, 6vw, 26px);
-  border-radius: 25px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 3px 8px rgba(10, 15, 50, 0.18);
-  transition: all 0.2s;
-  font-family: inherit;
-  white-space: nowrap;
-}
-
-.card-action-btn:active {
-  transform: scale(0.95);
-}
-
-.card-action-btn.icon-only {
-  flex: 0 0 50px;
-  padding: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-}
+    .card-action-btn {
+      background: rgba(12, 20, 91, 0.82); color: white; border: none;
+      padding: 8px 16px; border-radius: 20px;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: all 0.2s;
+      font-family: inherit;
+    }
+    .card-action-btn:active { transform: scale(0.95); }
+    .card-action-btn.icon-only {
+      padding: 0; width: 38px; height: 38px; border-radius: 50%;
+      display: flex; justify-content: center; align-items: center;
+      font-size: 16px;
+    }
 
     .white-section {
       flex: 1;
