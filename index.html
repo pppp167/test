@@ -129,19 +129,19 @@
     }
     .header-icons i:active { background: rgba(0, 0, 0, 0.4); }
 
-    /* ===== ปรับปรุงป้าย ONLINE ===== */
+    /* ===== ปรับปรุงป้าย ONLINE (ลบจุดออก) ===== */
     .online-badge {
       background: #22c55e; color: white; 
       font-size: 9px; 
-      font-weight: 400; /* ลดความหนาตัวอักษรลง */
-      padding: 2px 8px; /* เพิ่มความกว้างซ้าย-ขวาให้เป็นวงรีชัดเจน */
-      border-radius: 50px; /* เปลี่ยนเป็นวงรี */
-      line-height: 1; /* ให้ความสูงเท่ากับคำว่าสวัสดี */
+      font-weight: 400;
+      padding: 2px 8px;
+      border-radius: 50px;
+      line-height: 1;
       margin-left: 2px;
-      display: inline-flex; align-items: center; gap: 4px; vertical-align: middle;
+      display: inline-flex; align-items: center; justify-content: center;
+      vertical-align: middle;
       letter-spacing: 0.3px;
     }
-    .online-dot { width: 4px; height: 4px; background: white; border-radius: 50%; }
 
     .main-scroll-area {
       flex: 1;
@@ -344,7 +344,7 @@
       border: none;
       cursor: pointer;
       font-family: inherit;
-      font-weight: 400; /* ลดความหนาตัวอักษรลง */
+      font-weight: 400;
       flex: 1;
       min-width: 0;
       padding: 0;
@@ -353,7 +353,7 @@
 
     .nav-item.active {
       color: #111c8b; 
-      font-weight: 600; /* ลดความหนาลงจาก 700 เป็น 600 */
+      font-weight: 600;
     }
 
     .nav-item.active span::after {
@@ -366,18 +366,14 @@
       border-radius: 2px;
     }
 
-    .nav-item i {
-      font-size: clamp(24px, 7vw, 32px); 
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-
+    /* ปรับให้ไอคอน SVG ทุกตัวใน bottom nav มี stroke หนา 1.5 */
     .nav-item svg {
       display: block;
       flex-shrink: 0;
       width: clamp(26px, 7.5vw, 34px);
       height: clamp(26px, 7.5vw, 34px);
       margin-bottom: 2px;
+      stroke-width: 1.5;
     }
 
     .nav-scan {
@@ -402,7 +398,7 @@
       width: clamp(34px, 9vw, 42px);
       height: clamp(34px, 9vw, 42px);
       stroke: #ffffff;
-      stroke-width: 1.5; /* ลดความหนาเส้นไอคอนสแกนลง */
+      stroke-width: 1.5;
       fill: none;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -569,8 +565,8 @@
             <div class="avatar" id="avatarImg"></div>
           </div>
           <div class="user-text">
-            <p>สวัสดี <span class="online-badge"><span class="online-dot"></span>ONLINE</span></p>
-            <h1>คุณ ธนันท์รัฐ บัวสด</h1>
+            <p>สวัสดี <span class="online-badge">ONLINE</span></p>
+            <h1>คุณ ❌❌❌❌❌❌❌❌❌❌❌</h1>
           </div>
         </div>
 
@@ -744,9 +740,9 @@
         </svg>
       </div>
 
-      <!-- ปรับ stroke-width ของไอคอนหน้าหลักเป็น 1.5 -->
+      <!-- ไอคอนหน้าหลัก -->
       <button class="nav-item active">
-        <svg class="nav-home-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg class="nav-home-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M3 11.5 12 3.5l9 8"/>
           <path d="M18.5 4.5H16v3.2"/>
           <path d="M5.5 10v10h13V10"/>
@@ -754,8 +750,19 @@
         </svg>
         <span>หน้าหลัก</span>
       </button>
-      <button class="nav-item"><i class="fa-solid fa-file-lines"></i><span>เอกสาร</span></button>
+      
+      <!-- ไอคอนเอกสาร (เปลี่ยนใหม่) -->
+      <button class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="8" y1="13" x2="16" y2="13"></line>
+          <line x1="8" y1="17" x2="16" y2="17"></line>
+        </svg>
+        <span>เอกสาร</span>
+      </button>
 
+      <!-- ไอคอนสแกน -->
       <button class="nav-item nav-scan">
         <div class="scan-btn">
           <svg viewBox="0 0 24 24" class="scan-icon">
@@ -771,8 +778,31 @@
         <span>สแกน</span>
       </button>
 
-      <button class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i><span>ประวัติ</span></button>
-      <button class="nav-item"><i class="fa-solid fa-sliders"></i><span>ตั้งค่า</span></button>
+      <!-- ไอคอนประวัติ (เปลี่ยนใหม่) -->
+      <button class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+          <polyline points="12 7 12 12 15 15"></polyline>
+        </svg>
+        <span>ประวัติ</span>
+      </button>
+
+      <!-- ไอคอนตั้งค่า (เปลี่ยนใหม่) -->
+      <button class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="21" x2="4" y2="14"></line>
+          <line x1="4" y1="10" x2="4" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12" y2="3"></line>
+          <line x1="20" y1="21" x2="20" y2="16"></line>
+          <line x1="20" y1="12" x2="20" y2="3"></line>
+          <line x1="1" y1="14" x2="7" y2="14"></line>
+          <line x1="9" y1="8" x2="15" y2="8"></line>
+          <line x1="17" y1="16" x2="23" y2="16"></line>
+        </svg>
+        <span>ตั้งค่า</span>
+      </button>
     </div>
 
   </div>
