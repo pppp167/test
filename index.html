@@ -338,7 +338,7 @@
       flex-direction: column;
       align-items: center;
       gap: clamp(4px, 1.2vw, 8px);
-      color: #4b5563; /* ปรับเป็นสีเทาเข้มให้เหมือนรูป */
+      color: #4b5563;
       font-size: clamp(11px, 3vw, 14px); 
       background: none;
       border: none;
@@ -366,14 +366,14 @@
       border-radius: 2px;
     }
 
-    /* ปรับให้ไอคอน SVG ทุกตัวใน bottom nav มี stroke หนา 1.5 */
+    /* ปรับความหนาเส้น SVG ใน bottom nav เป็น 1.8 */
     .nav-item svg {
       display: block;
       flex-shrink: 0;
       width: clamp(26px, 7.5vw, 34px);
       height: clamp(26px, 7.5vw, 34px);
       margin-bottom: 2px;
-      stroke-width: 1.5;
+      stroke-width: 1.8; 
     }
 
     .nav-scan {
@@ -398,7 +398,7 @@
       width: clamp(34px, 9vw, 42px);
       height: clamp(34px, 9vw, 42px);
       stroke: #ffffff;
-      stroke-width: 1.5;
+      stroke-width: 1.8;
       fill: none;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -740,12 +740,13 @@
         </svg>
       </div>
 
-      <!-- ไอคอนหน้าหลัก (ปรับสัดส่วนให้พอดี) -->
+      <!-- ไอคอนหน้าหลัก (ลดขนาดประตูลง) -->
       <button class="nav-item active">
         <svg class="nav-home-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M4 10v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9"/>
           <path d="M2 11l10-8 10 8"/>
-          <path d="M9 21v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/>
+          <!-- ประตูบ้านทำเล็กลง (จาก 9-15 เป็น 10-14) -->
+          <path d="M10 21v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/>
         </svg>
         <span>หน้าหลัก</span>
       </button>
@@ -787,13 +788,13 @@
         <span>ประวัติ</span>
       </button>
 
-      <!-- ไอคอนตั้งค่า (เปลี่ยนใหม่แบบสไลเดอร์ 2 แท่ง) -->
+      <!-- ไอคอนตั้งค่า (ปรับให้ใหญ่ขึ้นและบาลานซ์กัน) -->
       <button class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="4" y1="9" x2="20" y2="9"></line>
-          <line x1="4" y1="15" x2="20" y2="15"></line>
-          <circle cx="10" cy="9" r="2" fill="#ffffff"></circle>
-          <circle cx="16" cy="15" r="2" fill="#ffffff"></circle>
+          <line x1="3" y1="8" x2="21" y2="8"></line>
+          <line x1="3" y1="16" x2="21" y2="16"></line>
+          <circle cx="10" cy="8" r="2.5" fill="#ffffff"></circle>
+          <circle cx="15" cy="16" r="2.5" fill="#ffffff"></circle>
         </svg>
         <span>ตั้งค่า</span>
       </button>
