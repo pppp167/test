@@ -46,18 +46,15 @@
     /* ===== Privacy Screen (เบลอใส ไม่มีสีทับ) ===== */
     #privacy-screen {
       position: fixed;
-      /* ขยายขอบออกไป 20px เพื่อให้คลุม Safe Area */
       top: -20px; left: -20px; right: -20px; bottom: -20px;
       z-index: 2147483647;
       pointer-events: none;
       opacity: 0;
       visibility: hidden;
       transition: none;
-      /* ใสเกือบ 100% แต่ให้ iOS ยอมเรนเดอร์ blur */
       background: rgba(255, 255, 255, 0.01);
     }
 
-    /* backdrop-filter ใส่เฉพาะตอนแสดง เพื่อไม่ให้ layer เบลอค้างอยู่ตอนใช้งานปกติ */
     #privacy-screen.is-visible {
       opacity: 1;
       visibility: visible;
@@ -96,7 +93,6 @@
       flex-shrink: 0;
       position: relative;
       z-index: 50;
-      /* ดันเนื้อหาลงมาไม่ให้ทับรอยบาก */
       padding: max(calc(env(safe-area-inset-top) + 8px), 62px) 20px 8px 20px;
       padding-left: clamp(10px, 3vw, 18px);
       isolation: isolate;
@@ -104,7 +100,6 @@
       -webkit-backdrop-filter: none;
     }
 
-    /* Home Screen apps can draw under the translucent iOS status bar. Keep a larger top inset there. */
     html.is-home-screen-app header {
       padding-top: max(calc(env(safe-area-inset-top) + 12px), 82px);
     }
@@ -200,45 +195,46 @@
     .lock-icon-svg { width: 56px; height: 56px; fill: #333; margin-bottom: 12px; }
     .lock-text { font-size: 17px; font-weight: 600; color: #333; }
 
-.card-action-bar {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-}
+    .card-action-bar {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+    }
 
-.card-action-btn {
-  background: rgba(12, 20, 91, 0.82);
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 18px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s;
-  font-family: inherit;
-}
+    .card-action-btn {
+      background: rgba(12, 20, 91, 0.82);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s;
+      font-family: inherit;
+    }
 
-.card-action-btn:active {
-  transform: scale(0.95);
-}
+    .card-action-btn:active {
+      transform: scale(0.95);
+    }
 
-.card-action-btn.icon-only {
-  padding: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-}
+    .card-action-btn.icon-only {
+      padding: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+    }
+
     .white-section {
       flex: 1;
       background: #ffffff;
@@ -319,37 +315,104 @@
       color: #9ca3af; font-size: 24px; z-index: 0;
     }
 
+    /* ===== แถบนำทางด้านล่าง (Bottom Nav) ===== */
     .bottom-nav {
       position: absolute;
       left: 0; right: 0; bottom: 0;
       width: auto;
       background: white;
       display: flex; justify-content: space-around; align-items: center;
-      padding: 12px 0 max(20px, env(safe-area-inset-bottom)) 0;
+      padding: clamp(10px, 2.5vw, 14px) clamp(4px, 1.5vw, 12px) max(clamp(14px, 3.5vw, 22px), env(safe-area-inset-bottom)) clamp(4px, 1.5vw, 12px);
       border-top: 1px solid #eee;
       z-index: 30;
     }
 
-    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #9ca3af; font-size: 12px; background: none; border: none; cursor: pointer; font-family: inherit; font-weight: 500;}
-    .nav-item.active { color: #303790; font-weight: 700;}
-    .nav-item i { font-size: 22px; }
-.nav-item svg { display: block; flex-shrink: 0; }
-    .nav-scan { margin-top: -35px; }
-    .scan-btn { width: 64px; height: 64px; background: #303790; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; border: 5px solid #f8f9fa; box-shadow: 0 4px 12px rgba(48, 55, 144, 0.3); }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(4px, 1.2vw, 8px);
+      color: #6b7280; /* สีเทาเข้มสำหรับปุ่มปกติ */
+      font-size: clamp(11px, 3vw, 14px); 
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      flex: 1;
+      min-width: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    .nav-item.active {
+      color: #111c8b; /* สีน้ำเงินเข้มสำหรับปุ่มที่เลือก */
+      font-weight: 700;
+    }
+
+    /* ขีดเส้นใต้ปุ่มที่เลือก */
+    .nav-item.active span::after {
+      content: '';
+      display: block;
+      width: 80%;
+      height: 2.5px;
+      background-color: #111c8b;
+      margin: 3px auto 0 auto;
+      border-radius: 2px;
+    }
+
+    .nav-item i {
+      font-size: clamp(24px, 7vw, 32px); 
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .nav-item svg {
+      display: block;
+      flex-shrink: 0;
+      width: clamp(26px, 7.5vw, 34px);
+      height: clamp(26px, 7.5vw, 34px);
+      margin-bottom: 2px;
+    }
+
+    .nav-scan {
+      margin-top: clamp(-45px, -11vw, -32px); 
+    }
+
+    .scan-btn {
+      width: clamp(68px, 18vw, 84px); 
+      height: clamp(68px, 18vw, 84px);
+      background: #303790;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: clamp(26px, 7vw, 34px);
+      border: clamp(4px, 1.2vw, 6px) solid #f8f9fa;
+      box-shadow: 0 4px 12px rgba(48, 55, 144, 0.3);
+    }
 
     .scan-icon {
-      width: 32px; height: 32px;
-      stroke: #ffffff; stroke-width: 1.8; fill: none;
-      stroke-linecap: round; stroke-linejoin: round;
+      width: clamp(34px, 9vw, 42px);
+      height: clamp(34px, 9vw, 42px);
+      stroke: #ffffff;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
+
+    .nav-scan { color: #6b7280; font-size: clamp(11px, 3vw, 14px); font-weight: 500; }
+    .nav-scan span { margin-top: 2px; }
 
     .chat-fab {
       position: absolute;
       right: 16px;
       bottom: calc(100% + 12px);
       top: auto;
-      width: 50px;
-      height: 50px;
+      width: clamp(50px, 13vw, 60px);
+      height: clamp(50px, 13vw, 60px);
       background: white;
       border-radius: 50%;
       display: flex; justify-content: center; align-items: center;
@@ -358,7 +421,8 @@
       z-index: 40;
     }
     .chat-fab svg {
-      width: 28px; height: 28px;
+      width: clamp(28px, 7.5vw, 34px);
+      height: clamp(28px, 7.5vw, 34px);
       stroke: #303790; stroke-width: 2; fill: none;
       stroke-linecap: round; stroke-linejoin: round;
     }
@@ -392,7 +456,6 @@
       width: auto;
       height: auto;
       background: rgba(0, 0, 0, 0.5);
-      
       z-index: 200;
       display: none;
       flex-direction: column;
@@ -425,7 +488,6 @@
     .header-icons-expanded { display: flex; gap: 12px; }
 
     .expand-card-container {
-      /* เลื่อนพื้นที่จัดบัตรลงจากจุดกึ่งกลางเพียง 12px และยังคำนวณขนาดจากจอเดิม */
       position: absolute;
       top: 12px;
       right: 0;
@@ -437,7 +499,6 @@
 
     .expand-card-inner {
       flex-shrink: 0;
-      /* ความสูงหลังหมุนไม่เกินจอ และเว้นระยะจากปุ่มด้านบนโดยให้ขอบบนล่างสมดุล */
       width: min(
         calc(98cqh),
         calc((98cqw) * 1.58),
@@ -596,7 +657,7 @@
           <div class="menu-item" onclick="alert('ระบบแจ้งย้ายที่อยู่')">
             <div class="menu-icon">
               <svg viewBox="0 0 24 24" class="solid-box-icon">
-               <path d="M12 2.5 L3.5 7 V17 L12 21.5 L20.5 17 V7 Z" fill="#ffffff" stroke="#303790" .../>
+                <path d="M12 2.5 L3.5 7 V17 L12 21.5 L20.5 17 V7 Z" fill="#ffffff" stroke="#303790" .../>
                 <polygon points="3.5 7 12 11.5 12 21.5 3.5 17" fill="#303790" stroke="#303790" stroke-width="1.5" stroke-linejoin="round"></polygon>
                 <polyline points="3.5 7 12 11.5 20.5 7" stroke="#303790" .../>
                 <line x1="12" y1="11.5" x2="12" y2="21.5" stroke="#303790" .../>
@@ -678,7 +739,7 @@
         </svg>
       </div>
 
-      <button class="nav-item active"><svg class="nav-home-outline" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 3.5l9 8"/><path d="M18.5 4.5H16v3.2"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg><span>หน้าหลัก</span></button>
+      <button class="nav-item active"><svg class="nav-home-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 3.5l9 8"/><path d="M18.5 4.5H16v3.2"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg><span>หน้าหลัก</span></button>
       <button class="nav-item"><i class="fa-solid fa-file-lines"></i><span>เอกสาร</span></button>
 
       <button class="nav-item nav-scan">
@@ -769,7 +830,6 @@
         if (expandedCardModal) expandedCardModal.classList.remove('is-privacy-blurred');
       };
 
-      // เปิดหน้าให้คมชัดก่อน แล้วค่อยเปิดเบลอเมื่อเริ่มสลับแอป
       hidePrivacyScreen();
 
       document.addEventListener('touchstart', (event) => {
@@ -798,7 +858,6 @@
         else hidePrivacyScreen();
       });
       document.addEventListener('webkitvisibilitychange', () => {
-        // ใช้สถานะมาตรฐานก่อน เพื่อไม่ให้ค่า webkitHidden ที่ค้างอยู่ทำให้เบลอกลับมา
         if (document.visibilityState === 'hidden') showPrivacyScreen();
         else if (document.visibilityState === 'visible') hidePrivacyScreen();
         else if (document.webkitHidden === true) showPrivacyScreen();
@@ -807,13 +866,10 @@
 
       window.addEventListener('pagehide', showPrivacyScreen);
       window.addEventListener('pageshow', hidePrivacyScreen);
-      // (ลบ listener 'blur' ออกแล้ว เพราะ iOS ยิง blur ตอนเปิดแอป/แตะแถบระบบ ทำให้เบลอค้าง)
-      // ล้างทันทีเมื่อได้ focus/resume กลับมา ไม่รอ visibilityState ที่ iOS อาจอัปเดตช้า
       window.addEventListener('focus', hidePrivacyScreen);
       window.addEventListener('resume', hidePrivacyScreen);
       document.addEventListener('resume', hidePrivacyScreen);
 
-      // ตรวจตอนเริ่มเปิดแอปด้วย เผื่อเหตุการณ์เริ่มต้นเกิดก่อนติดตั้ง listeners
       const clearOnInitialForeground = () => {
         if (document.visibilityState === 'visible') hidePrivacyScreen();
       };
