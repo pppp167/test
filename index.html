@@ -129,7 +129,7 @@
     }
     .header-icons i:active { background: rgba(0, 0, 0, 0.4); }
 
-    /* ===== ปรับปรุงป้าย ONLINE (ลบจุดออก) ===== */
+    /* ===== ป้าย ONLINE ===== */
     .online-badge {
       background: #22c55e; color: white; 
       font-size: 9px; 
@@ -338,7 +338,7 @@
       flex-direction: column;
       align-items: center;
       gap: clamp(4px, 1.2vw, 8px);
-      color: #6b7280;
+      color: #4b5563; /* ปรับเป็นสีเทาเข้มให้เหมือนรูป */
       font-size: clamp(11px, 3vw, 14px); 
       background: none;
       border: none;
@@ -404,7 +404,7 @@
       stroke-linejoin: round;
     }
 
-    .nav-scan { color: #6b7280; font-size: clamp(11px, 3vw, 14px); font-weight: 400; }
+    .nav-scan { color: #4b5563; font-size: clamp(11px, 3vw, 14px); font-weight: 400; }
     .nav-scan span { margin-top: 2px; }
 
     .chat-fab {
@@ -566,7 +566,7 @@
           </div>
           <div class="user-text">
             <p>สวัสดี <span class="online-badge">ONLINE</span></p>
-            <h1>คุณ ธนันท์รัฐ​ บัวสด</h1>
+            <h1>คุณ ❌❌❌❌❌❌❌❌❌❌❌</h1>
           </div>
         </div>
 
@@ -740,18 +740,17 @@
         </svg>
       </div>
 
-      <!-- ไอคอนหน้าหลัก -->
+      <!-- ไอคอนหน้าหลัก (ปรับสัดส่วนให้พอดี) -->
       <button class="nav-item active">
         <svg class="nav-home-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 11.5 12 3.5l9 8"/>
-          <path d="M18.5 4.5H16v3.2"/>
-          <path d="M5.5 10v10h13V10"/>
-          <path d="M10 20v-5.5h4V20"/>
+          <path d="M4 10v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9"/>
+          <path d="M2 11l10-8 10 8"/>
+          <path d="M9 21v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/>
         </svg>
         <span>หน้าหลัก</span>
       </button>
       
-      <!-- ไอคอนเอกสาร (เปลี่ยนใหม่) -->
+      <!-- ไอคอนเอกสาร -->
       <button class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -778,7 +777,7 @@
         <span>สแกน</span>
       </button>
 
-      <!-- ไอคอนประวัติ (เปลี่ยนใหม่) -->
+      <!-- ไอคอนประวัติ -->
       <button class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
@@ -788,18 +787,13 @@
         <span>ประวัติ</span>
       </button>
 
-      <!-- ไอคอนตั้งค่า (เปลี่ยนใหม่) -->
+      <!-- ไอคอนตั้งค่า (เปลี่ยนใหม่แบบสไลเดอร์ 2 แท่ง) -->
       <button class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="4" y1="21" x2="4" y2="14"></line>
-          <line x1="4" y1="10" x2="4" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="12"></line>
-          <line x1="12" y1="8" x2="12" y2="3"></line>
-          <line x1="20" y1="21" x2="20" y2="16"></line>
-          <line x1="20" y1="12" x2="20" y2="3"></line>
-          <line x1="1" y1="14" x2="7" y2="14"></line>
-          <line x1="9" y1="8" x2="15" y2="8"></line>
-          <line x1="17" y1="16" x2="23" y2="16"></line>
+          <line x1="4" y1="9" x2="20" y2="9"></line>
+          <line x1="4" y1="15" x2="20" y2="15"></line>
+          <circle cx="10" cy="9" r="2" fill="#ffffff"></circle>
+          <circle cx="16" cy="15" r="2" fill="#ffffff"></circle>
         </svg>
         <span>ตั้งค่า</span>
       </button>
