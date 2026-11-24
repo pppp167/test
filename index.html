@@ -129,11 +129,17 @@
     }
     .header-icons i:active { background: rgba(0, 0, 0, 0.4); }
 
+    /* ===== ปรับปรุงป้าย ONLINE ===== */
     .online-badge {
-      background: #22c55e; color: white; font-size: 9px; font-weight: 600;
-      padding: 2px 6px; border-radius: 4px; margin-left: 2px;
+      background: #22c55e; color: white; 
+      font-size: 9px; 
+      font-weight: 400; /* ลดความหนาตัวอักษรลง */
+      padding: 2px 8px; /* เพิ่มความกว้างซ้าย-ขวาให้เป็นวงรีชัดเจน */
+      border-radius: 50px; /* เปลี่ยนเป็นวงรี */
+      line-height: 1; /* ให้ความสูงเท่ากับคำว่าสวัสดี */
+      margin-left: 2px;
       display: inline-flex; align-items: center; gap: 4px; vertical-align: middle;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
     }
     .online-dot { width: 4px; height: 4px; background: white; border-radius: 50%; }
 
@@ -332,13 +338,13 @@
       flex-direction: column;
       align-items: center;
       gap: clamp(4px, 1.2vw, 8px);
-      color: #6b7280; /* สีเทาเข้มสำหรับปุ่มปกติ */
+      color: #6b7280;
       font-size: clamp(11px, 3vw, 14px); 
       background: none;
       border: none;
       cursor: pointer;
       font-family: inherit;
-      font-weight: 500;
+      font-weight: 400; /* ลดความหนาตัวอักษรลง */
       flex: 1;
       min-width: 0;
       padding: 0;
@@ -346,11 +352,10 @@
     }
 
     .nav-item.active {
-      color: #111c8b; /* สีน้ำเงินเข้มสำหรับปุ่มที่เลือก */
-      font-weight: 700;
+      color: #111c8b; 
+      font-weight: 600; /* ลดความหนาลงจาก 700 เป็น 600 */
     }
 
-    /* ขีดเส้นใต้ปุ่มที่เลือก */
     .nav-item.active span::after {
       content: '';
       display: block;
@@ -397,13 +402,13 @@
       width: clamp(34px, 9vw, 42px);
       height: clamp(34px, 9vw, 42px);
       stroke: #ffffff;
-      stroke-width: 1.8;
+      stroke-width: 1.5; /* ลดความหนาเส้นไอคอนสแกนลง */
       fill: none;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
-    .nav-scan { color: #6b7280; font-size: clamp(11px, 3vw, 14px); font-weight: 500; }
+    .nav-scan { color: #6b7280; font-size: clamp(11px, 3vw, 14px); font-weight: 400; }
     .nav-scan span { margin-top: 2px; }
 
     .chat-fab {
@@ -565,7 +570,7 @@
           </div>
           <div class="user-text">
             <p>สวัสดี <span class="online-badge"><span class="online-dot"></span>ONLINE</span></p>
-            <h1>คุณ ธนันท์รัฐ บัวสด</h1>
+            <h1>คุณ ❌❌❌❌❌❌❌❌❌❌❌</h1>
           </div>
         </div>
 
@@ -739,7 +744,16 @@
         </svg>
       </div>
 
-      <button class="nav-item active"><svg class="nav-home-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 3.5l9 8"/><path d="M18.5 4.5H16v3.2"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg><span>หน้าหลัก</span></button>
+      <!-- ปรับ stroke-width ของไอคอนหน้าหลักเป็น 1.5 -->
+      <button class="nav-item active">
+        <svg class="nav-home-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 11.5 12 3.5l9 8"/>
+          <path d="M18.5 4.5H16v3.2"/>
+          <path d="M5.5 10v10h13V10"/>
+          <path d="M10 20v-5.5h4V20"/>
+        </svg>
+        <span>หน้าหลัก</span>
+      </button>
       <button class="nav-item"><i class="fa-solid fa-file-lines"></i><span>เอกสาร</span></button>
 
       <button class="nav-item nav-scan">
