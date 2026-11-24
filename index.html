@@ -333,7 +333,7 @@
     .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #9ca3af; font-size: 12px; background: none; border: none; cursor: pointer; font-family: inherit; font-weight: 500;}
     .nav-item.active { color: #303790; font-weight: 700;}
     .nav-item i { font-size: 22px; }
-
+.nav-item svg { display: block; flex-shrink: 0; }
     .nav-scan { margin-top: -35px; }
     .scan-btn { width: 64px; height: 64px; background: #303790; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; border: 5px solid #f8f9fa; box-shadow: 0 4px 12px rgba(48, 55, 144, 0.3); }
 
@@ -678,7 +678,7 @@
         </svg>
       </div>
 
-      <button class="nav-item active"><i class="fa-solid fa-house"></i><span>หน้าหลัก</span></button>
+      <button class="nav-item active"><svg class="nav-home-outline" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 3.5l9 8"/><path d="M18.5 4.5H16v3.2"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg><span>หน้าหลัก</span></button>
       <button class="nav-item"><i class="fa-solid fa-file-lines"></i><span>เอกสาร</span></button>
 
       <button class="nav-item nav-scan">
